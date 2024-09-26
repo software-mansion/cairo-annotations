@@ -1,0 +1,6 @@
+[package]
+name = "cairo-annotations"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
