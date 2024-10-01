@@ -1,5 +1,6 @@
 use assert_fs::fixture::PathCopy;
 use assert_fs::TempDir;
+use cairo_lang_sierra::debug_info::DebugInfo;
 use cairo_lang_sierra::program::{ProgramArtifact, VersionedProgram};
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraToCasmConfig};
 use cairo_lang_sierra_to_casm::metadata::{calc_metadata, MetadataComputationConfig};
@@ -70,6 +71,10 @@ pub struct TraceFile {
 impl TraceFile {
     pub fn get_casm_level_info(&self) -> &CasmLevelInfo {
         &self.cairo_execution_info.casm_level_info
+    }
+
+    pub fn get_debug_info(&self) -> &DebugInfo {
+        self.program.debug_info.as_ref().unwrap()
     }
 
     pub fn get_casm_debug_info(&self) -> CairoProgramDebugInfo {
