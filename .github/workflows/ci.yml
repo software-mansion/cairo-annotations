@@ -13,10 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84
-      - uses: hrishikesh-kadam/setup-lcov@v1
-      - uses: software-mansion/setup-scarb@v1
-      - uses: foundry-rs/setup-snfoundry@v3
+      - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
+      - uses: software-mansion/setup-scarb@12a7beb12b6b7f3e796570b26c2e4fbc1c25f1e4 # v1.3.2
+      - uses: foundry-rs/setup-snfoundry@bd5fc266ba0ce7e352b01dd7eaacc0fbb6145d17 # v3.0.0
       - run: cargo test --release
 
   rustfmt:
@@ -25,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84
+      - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
       - run: cargo fmt --check
 
   clippy:
@@ -37,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84
+      - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
       - run: cargo lint
 
   typos:
@@ -46,4 +45,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: typos-action
-        uses: crate-ci/typos@v1.23.6
+        uses: crate-ci/typos@f12cee1d8f3c79282a98ecb41d235aef17dfa8fd # v1.2.5
