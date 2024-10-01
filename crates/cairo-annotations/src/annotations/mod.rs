@@ -1,3 +1,4 @@
+pub mod coverage;
 mod impl_helpers;
 pub mod profiler;
 mod traits;

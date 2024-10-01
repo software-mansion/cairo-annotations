@@ -56,7 +56,9 @@ impl TestProjectOutput {
         let VersionedProgram::V1 { program, .. } =
             read_and_deserialize(&cairo_execution_info.source_sierra_path.clone().into());
 
+        let project_dir = self.0.dir.path().canonicalize().unwrap();
         TraceFile {
+            project_dir,
             cairo_execution_info,
             program,
         }
@@ -64,11 +66,15 @@ impl TestProjectOutput {
 }
 
 pub struct TraceFile {
+    project_dir: PathBuf,
     cairo_execution_info: CairoExecutionInfo,
     program: ProgramArtifact,
 }
 
 impl TraceFile {
+    pub fn get_project_dir(&self) -> String {
+        self.project_dir.display().to_string()
+    }
     pub fn get_casm_level_info(&self) -> &CasmLevelInfo {
         &self.cairo_execution_info.casm_level_info
     }
