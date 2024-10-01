@@ -4,3 +4,12 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
+cairo-lang-sierra-to-casm.workspace = true
+cairo-lang-sierra.workspace = true
+serde.workspace = true
+trace-data.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+assert_fs.workspace = true
+snapbox.workspace = true
