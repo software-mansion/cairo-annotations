@@ -1,5 +1,6 @@
 use assert_fs::fixture::PathCopy;
 use assert_fs::TempDir;
+use cairo_annotations::trace_data::{CairoExecutionInfo, CasmLevelInfo, VersionedCallTrace};
 use cairo_lang_sierra::debug_info::DebugInfo;
 use cairo_lang_sierra::program::{ProgramArtifact, VersionedProgram};
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraToCasmConfig};
@@ -8,7 +9,6 @@ use serde::de::DeserializeOwned;
 use snapbox::cmd::Command as SnapboxCommand;
 use std::fs;
 use std::path::PathBuf;
-use trace_data::{CairoExecutionInfo, CallTrace, CasmLevelInfo};
 
 pub struct TestProject {
     dir: TempDir,
@@ -50,7 +50,7 @@ impl TestProjectOutput {
             .map(|entry| entry.unwrap().path())
             .unwrap();
 
-        let call_trace: CallTrace = read_and_deserialize(&trace_file_path);
+        let VersionedCallTrace::V1(call_trace) = read_and_deserialize(&trace_file_path);
 
         let cairo_execution_info = call_trace.cairo_execution_info.unwrap();
         let VersionedProgram::V1 { program, .. } =

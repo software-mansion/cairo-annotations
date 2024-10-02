@@ -1,7 +1,7 @@
+use crate::trace_data::CasmLevelInfo;
 use cairo_lang_sierra::program::StatementIdx;
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraStatementDebugInfo};
 use serde::{Deserialize, Serialize};
-use trace_data::CasmLevelInfo;
 
 /// Enum to represent the result of mapping a pc to a sierra statement id.
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]

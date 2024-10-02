@@ -191,11 +191,11 @@ dependencies = [
  "assert_fs",
  "cairo-lang-sierra",
  "cairo-lang-sierra-to-casm",
+ "camino",
  "derive_more",
  "serde",
  "serde_json",
  "snapbox",
- "trace-data",
 ]
 
 [[package]]
@@ -1497,15 +1497,6 @@ dependencies = [
  "indexmap 2.5.0",
  "toml_datetime",
  "winnow",
-]
-
-[[package]]
-name = "trace-data"
-version = "0.5.0"
-source = "git+https://github.com/software-mansion/cairo-profiler/?tag=v0.6.0#f55e35953f36ef7b09cb4b96394978a8fe7f5dff"
-dependencies = [
- "camino",
- "serde",
 ]
 
 [[package]]
