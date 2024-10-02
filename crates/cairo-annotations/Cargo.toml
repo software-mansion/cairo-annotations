@@ -6,10 +6,10 @@ edition.workspace = true
 [dependencies]
 cairo-lang-sierra-to-casm.workspace = true
 cairo-lang-sierra.workspace = true
+camino.workspace = true
 derive_more.workspace = true
 serde.workspace = true
 serde_json.workspace = true
-trace-data.workspace = true
 
 [dev-dependencies]
 assert_fs.workspace = true
