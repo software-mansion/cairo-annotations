@@ -1,1 +1,2 @@
 mod map_pcs_to_sierra_statement_ids;
+mod profiler_annotations;
