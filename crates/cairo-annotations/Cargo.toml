@@ -3,6 +3,14 @@ name = "cairo-annotations"
 version.workspace = true
 edition.workspace = true
 
+authors.workspace = true
+categories.workspace = true
+description = "Structured annotations for Cairo"
+license.workspace = true
+keywords.workspace = true
+readme.workspace = true
+repository.workspace = true
+
 [dependencies]
 cairo-lang-sierra-to-casm.workspace = true
 cairo-lang-sierra.workspace = true
