@@ -1,8 +1,9 @@
 use cairo_lang_sierra::debug_info::DebugInfo;
 use serde::de::DeserializeOwned;
+use thiserror::Error;
 
 pub trait TryFromDebugInfo: Sized {
-    type Error;
+    type Error: std::error::Error;
 
     /// Attempt to create an instance of the implementing type from the provided sierra `DebugInfo`.
     /// # Errors
@@ -12,12 +13,15 @@ pub trait TryFromDebugInfo: Sized {
 }
 
 /// Enum representing the possible errors that can occur when trying to create an annotation from sierra debug information.
-#[derive(Debug)]
+#[derive(Debug, Error)]
 pub enum AnnotationsError {
-    /// Error indicating that the namespace is missing from the annotations. Contains the missing namespace.
+    /// Error indicating that the namespace is missing from the annotations.
+    #[error("Missing namespace: {0}")]
     MissingNamespace(String),
-    /// Error indicating that the deserialization of the annotation failed. Contains the deserialization error.
-    DeserializationError(serde_json::Error),
+
+    /// Error indicating that the deserialization of the annotation failed.
+    #[error("Deserialization error: {0}")]
+    DeserializationError(#[from] serde_json::Error),
 }
 
 pub(crate) trait Namespace {
