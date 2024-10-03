@@ -39,6 +39,25 @@ jobs:
           VERSION=${{ steps.lookupVersion.outputs.result }}
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
+  verify-tag-existence:
+    name: Check if version exists as GitHub tag
+    needs: get-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if version exists as a GitHub tag
+        id: check_tag
+        run: |
+          VERSION=${{ needs.get-version.outputs.version }}
+          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            echo "Version $VERSION already exists as a GitHub tag."
+            exit 1
+          else
+            echo "Version $VERSION does not exist as a GitHub tag."
+          fi
+
   create-release:
     name: Create release
     runs-on: ubuntu-latest
