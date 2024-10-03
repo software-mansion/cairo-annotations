@@ -1,28 +1,24 @@
 # Cairo Annotations
 
-The `cairo-annotations` crate provides tools tailored for working with annotations in the Cairo language.
-These
+The `cairo-annotations` crate provides tools tailored for working with annotations in the Cairo language. These
 annotations are part of the Sierra Debug Information format and serve to enrich the code by detailing information.
 
-> 📝 **Note**
->
-> Although this crate is primarily utilized by projects like `cairo-coverage`, `cairo-profiler`, and `starknet-foundry`,
+> 📝 **Note**  
+> Although this crate is primarily used by projects like `cairo-coverage`, `cairo-profiler`, and `starknet-foundry`,
 > it is also fully capable of functioning as a standalone library to work with Sierra Debug Information annotations.
 
 ## Features of Cairo Annotations
 
 ### Structured Annotations
 
-`cairo-annotations` offers a structured representation, allowing for more ergonomic manipulation of annotations.
-Some
+`cairo-annotations` offers a structured representation, allowing for more ergonomic manipulation of annotations. Some
 key features include:
 
 - **Coverage Annotations**: Track locations in the Cairo code that correspond to specific Sierra statements.
 - **Profiler Annotations**: Provide mappings from Sierra statements to fully qualified Cairo paths, detailing which
   functions in the Cairo code triggered them.
 
-All annotations implement the `TryFromDebugInfo` trait, enabling their extraction from Sierra debug information.
-Here's
+All annotations implement the `TryFromDebugInfo` trait, enabling their extraction from Sierra debug information. Here's
 a simple example:
 
 ```rust
@@ -32,8 +28,7 @@ let annotations = VersionedCoverageAnnotations::try_from_debug_info(sierra_debug
 ### Coverage Annotations
 
 Coverage annotations provide a mapping from Sierra statement indices to sources in the Cairo code that resulted in their
-creation.
-For extensive documentation,
+creation. For extensive documentation,
 see [CoverageAnnotationsV1](./crates/cairo-annotations/src/annotations/coverage.rs).
 
 Example to retrieve code location information:
@@ -69,11 +64,10 @@ assert_eq!(
 ### Profiler Annotations
 
 Profiler annotations map Sierra statement indices to Cairo function paths, showing which functions led to their
-generation.
-Detailed information is available
+generation. Detailed information is available
 in [ProfilerAnnotationsV1](./crates/cairo-annotations/src/annotations/profiler.rs).
 
-Example to obtain the Cairo path:
+Example to get the Cairo path:
 
 ```rust
 use cairo_annotations::annotations::profiler::{
@@ -96,11 +90,10 @@ assert_eq!(
 );
 ```
 
-## Integration with Snforge
+## Integration with snforge
 
 Annotations are particularly useful for getting information about executed code. If you are using `snforge`, you can
 leverage the `--save-trace-data` flag to generate trace data.
 
 Deserialize this data using `VersionedCallTrace` from the `cairo-annotations` crate, and subsequently
 use `map_pcs_to_sierra_statement_ids` to map the trace to Sierra statement IDs.
-
