@@ -25,6 +25,7 @@ a simple example:
 let annotations = VersionedCoverageAnnotations::try_from_debug_info(sierra_debug_info).unwrap();
 ```
 
+
 ### Coverage Annotations
 
 Coverage annotations provide a mapping from Sierra statement indices to sources in the Cairo code that resulted in their
@@ -42,12 +43,12 @@ use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_lang_sierra::program::StatementIdx;
 
 let VersionedCoverageAnnotations::V1(annotations) =
-VersionedCoverageAnnotations::try_from_debug_info(sierra_debug_info).unwrap();
+    VersionedCoverageAnnotations::try_from_debug_info(sierra_debug_info).unwrap();
 
 let code_locations = annotations
-.statements_code_locations
-.get( & StatementIdx(331))
-.unwrap();
+    .statements_code_locations
+    .get(&StatementIdx(331))
+    .unwrap();
 
 assert_eq!(
     code_locations,
@@ -77,12 +78,12 @@ use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_lang_sierra::program::StatementIdx;
 
 let VersionedProfilerAnnotations::V1(annotations) =
-VersionedProfilerAnnotations::try_from_debug_info(sierra_debug_info).unwrap();
+    VersionedProfilerAnnotations::try_from_debug_info(sierra_debug_info).unwrap();
 
 let functions_names = annotations
-.statements_functions
-.get( & StatementIdx(331))
-.unwrap();
+    .statements_functions
+    .get(&StatementIdx(331))
+    .unwrap();
 
 assert_eq!(
     functions_names,
