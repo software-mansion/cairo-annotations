@@ -3,6 +3,8 @@
 The `cairo-annotations` crate provides tools tailored for working with annotations in the Cairo language. These
 annotations are part of the Sierra Debug Information format and serve to enrich the code by detailing information.
 
+To see JSON example of the annotations, check the following [file](./examples/annotation.json).
+
 > 📝 **Note**  
 > Although this crate is primarily used by projects like `cairo-coverage`, `cairo-profiler`, and `starknet-foundry`,
 > it is also fully capable of functioning as a standalone library to work with Sierra Debug Information annotations.
