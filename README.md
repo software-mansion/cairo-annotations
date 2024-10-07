@@ -5,10 +5,6 @@ annotations are part of the Sierra Debug Information format and serve to enrich 
 
 To see JSON example of the annotations, check the following [file](./examples/annotation.json).
 
-> 📝 **Note**  
-> Although this crate is primarily used by projects like `cairo-coverage`, `cairo-profiler`, and `starknet-foundry`,
-> it is also fully capable of functioning as a standalone library to work with Sierra Debug Information annotations.
-
 ## Features of Cairo Annotations
 
 ### Structured Annotations
@@ -92,6 +88,12 @@ assert_eq!(
     &[FunctionName("scarb_template::fib".into())]
 );
 ```
+
+### Versioning
+
+Annotations are versioned to ensure backward compatibility with different formats. The `VersionedCoverageAnnotations`
+and `VersionedProfilerAnnotations` enums encapsulate the different versions of the annotations. The versioning goes
+as `V1`, `V2`, `V3`, and so on, with the greatest version representing the latest version.
 
 ## Integration with snforge
 
