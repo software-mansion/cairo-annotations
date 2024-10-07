@@ -8,6 +8,13 @@ members = [
 version = "0.1.0"
 edition = "2021"
 
+authors = ["Software Mansion <contact@swmansion.com>"]
+categories = ["development-tools"]
+license = "MIT"
+keywords = ["cairo-lang", "starknet"]
+readme = "README.md"
+repository = "https://github.com/software-mansion/cairo-annotations"
+
 [workspace.dependencies]
 cairo-lang-sierra-to-casm = "2.8.2"
 cairo-lang-sierra = "2.8.2"
