@@ -1,5 +1,6 @@
 use crate::annotations::impl_helpers::impl_namespace;
 use cairo_lang_sierra::program::StatementIdx;
+use derive_more::Display;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::collections::HashMap;
 
@@ -29,7 +30,9 @@ pub struct ProfilerAnnotationsV1 {
 }
 
 /// The fully qualified Cairo path of the Cairo function.
-#[derive(Clone, Debug, Eq, PartialEq, Hash, Serialize, Deserialize)]
+#[derive(
+    Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Serialize, Deserialize, Display, Default,
+)]
 pub struct FunctionName(pub String);
 
 // We can't use untagged enum here. See https://github.com/serde-rs/json/issues/1103
