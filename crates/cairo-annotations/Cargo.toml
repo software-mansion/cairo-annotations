@@ -19,6 +19,7 @@ thiserror.workspace = true
 derive_more.workspace = true
 serde.workspace = true
 serde_json.workspace = true
+anyhow.workspace = true
 
 [dev-dependencies]
 assert_fs.workspace = true
