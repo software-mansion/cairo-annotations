@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
-      - uses: software-mansion/setup-scarb@faa9d477f296098d14f77550a734851f460b3e4d # v1.3.3
+      - uses: software-mansion/setup-scarb@f4e6c94463f876159057c57d3f0770cc39d3ea1a # v1.4.0
       - uses: foundry-rs/setup-snfoundry@bd5fc266ba0ce7e352b01dd7eaacc0fbb6145d17 # v3.0.0
       - run: cargo test --release
 
