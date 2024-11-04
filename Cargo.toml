@@ -24,4 +24,4 @@ derive_more = { version = "1.0.0", features = ["add", "add_assign", "mul", "mul_
 serde = { version = "1.0.195", features = ["derive"] }
 serde_json = "1.0.128"
 assert_fs = "1.1.2"
-snapbox = "0.6.17"
+snapbox = "0.6.19"
