@@ -64,15 +64,11 @@ pub struct TraceEntry {
 #[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct ExecutionResources {
     pub vm_resources: VmExecutionResources,
-    pub syscall_counter: SyscallCounter,
 }
 
 impl AddAssign<&ExecutionResources> for ExecutionResources {
     fn add_assign(&mut self, rhs: &ExecutionResources) {
         self.vm_resources += &rhs.vm_resources;
-        for (syscall, count) in &rhs.syscall_counter {
-            *self.syscall_counter.entry(*syscall).or_insert(0) += count;
-        }
     }
 }
 
@@ -82,9 +78,6 @@ impl Sub<&ExecutionResources> for &ExecutionResources {
     fn sub(self, rhs: &ExecutionResources) -> Self::Output {
         let mut result = self.clone();
         result.vm_resources -= &rhs.vm_resources;
-        for (syscall, count) in &rhs.syscall_counter {
-            *result.syscall_counter.entry(*syscall).or_insert(0) -= count;
-        }
         result
     }
 }
@@ -116,8 +109,6 @@ impl SubAssign<&VmExecutionResources> for VmExecutionResources {
         }
     }
 }
-
-type SyscallCounter = HashMap<DeprecatedSyscallSelector, usize>;
 
 #[derive(Clone, Copy, Debug, Deserialize, Serialize, Eq, Hash, PartialEq)]
 pub enum DeprecatedSyscallSelector {
@@ -200,15 +191,6 @@ impl ExecutionResources {
         let other_builtin_counter = &other.vm_resources.builtin_instance_counter;
         for (builtin, other_count) in other_builtin_counter {
             let self_count = self_builtin_counter.get(builtin).unwrap_or(&0);
-            if self_count < other_count {
-                return false;
-            }
-        }
-
-        let self_builtin_counter = &self.syscall_counter;
-        let other_builtin_counter = &other.syscall_counter;
-        for (syscall, other_count) in other_builtin_counter {
-            let self_count = self_builtin_counter.get(syscall).unwrap_or(&0);
             if self_count < other_count {
                 return false;
             }
