@@ -16,8 +16,8 @@ readme = "README.md"
 repository = "https://github.com/software-mansion/cairo-annotations"
 
 [workspace.dependencies]
-cairo-lang-sierra-to-casm = "2.8.2"
-cairo-lang-sierra = "2.8.2"
+cairo-lang-sierra-to-casm = "2.8.4"
+cairo-lang-sierra = "2.8.4"
 camino = { version = "1.1.9", features = ["serde1"] }
 thiserror = "1.0.66"
 derive_more = { version = "1.0.0", features = ["add", "add_assign", "mul", "mul_assign", "display"] }
