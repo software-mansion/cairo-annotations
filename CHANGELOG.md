@@ -10,4 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - removed syscall_counter from ExecutionResources
 - wrapped CallTraceV1 into Box for better performance
 - implemented method `DeprecatedSyscallSelector::all()` for getting all possible libfuncs
-- implemented traits for `DeprecatedSyscallSelector` to allow its conversion from/to a string
+- added traits for `DeprecatedSyscallSelector` to allow its conversion from/to a string

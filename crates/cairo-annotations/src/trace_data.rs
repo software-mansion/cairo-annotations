@@ -2,7 +2,7 @@ use camino::Utf8PathBuf;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::ops::{AddAssign, Sub, SubAssign};
-use std::str::FromStr;
+use strum_macros::{Display, EnumString};
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
 pub struct ClassHash(pub String);
@@ -111,7 +111,7 @@ impl SubAssign<&VmExecutionResources> for VmExecutionResources {
     }
 }
 
-#[derive(Clone, Copy, Debug, Deserialize, Serialize, Eq, Hash, PartialEq)]
+#[derive(Clone, Copy, Debug, Display, Deserialize, Serialize, Eq, Hash, PartialEq, EnumString)]
 pub enum DeprecatedSyscallSelector {
     CallContract,
     DelegateCall,
@@ -184,54 +184,6 @@ impl DeprecatedSyscallSelector {
             DeprecatedSyscallSelector::StorageWrite,
             DeprecatedSyscallSelector::Sha256ProcessBlock,
         ]
-    }
-}
-
-impl From<DeprecatedSyscallSelector> for String {
-    fn from(selector: DeprecatedSyscallSelector) -> Self {
-        format!("{selector:?}")
-    }
-}
-
-impl FromStr for DeprecatedSyscallSelector {
-    type Err = anyhow::Error;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s {
-            "CallContract" => Ok(DeprecatedSyscallSelector::CallContract),
-            "DelegateCall" => Ok(DeprecatedSyscallSelector::DelegateCall),
-            "DelegateL1Handler" => Ok(DeprecatedSyscallSelector::DelegateL1Handler),
-            "Deploy" => Ok(DeprecatedSyscallSelector::Deploy),
-            "EmitEvent" => Ok(DeprecatedSyscallSelector::EmitEvent),
-            "GetBlockHash" => Ok(DeprecatedSyscallSelector::GetBlockHash),
-            "GetBlockNumber" => Ok(DeprecatedSyscallSelector::GetBlockNumber),
-            "GetBlockTimestamp" => Ok(DeprecatedSyscallSelector::GetBlockTimestamp),
-            "GetCallerAddress" => Ok(DeprecatedSyscallSelector::GetCallerAddress),
-            "GetContractAddress" => Ok(DeprecatedSyscallSelector::GetContractAddress),
-            "GetExecutionInfo" => Ok(DeprecatedSyscallSelector::GetExecutionInfo),
-            "GetSequencerAddress" => Ok(DeprecatedSyscallSelector::GetSequencerAddress),
-            "GetTxInfo" => Ok(DeprecatedSyscallSelector::GetTxInfo),
-            "GetTxSignature" => Ok(DeprecatedSyscallSelector::GetTxSignature),
-            "Keccak" => Ok(DeprecatedSyscallSelector::Keccak),
-            "LibraryCall" => Ok(DeprecatedSyscallSelector::LibraryCall),
-            "LibraryCallL1Handler" => Ok(DeprecatedSyscallSelector::LibraryCallL1Handler),
-            "ReplaceClass" => Ok(DeprecatedSyscallSelector::ReplaceClass),
-            "Secp256k1Add" => Ok(DeprecatedSyscallSelector::Secp256k1Add),
-            "Secp256k1GetPointFromX" => Ok(DeprecatedSyscallSelector::Secp256k1GetPointFromX),
-            "Secp256k1GetXy" => Ok(DeprecatedSyscallSelector::Secp256k1GetXy),
-            "Secp256k1Mul" => Ok(DeprecatedSyscallSelector::Secp256k1Mul),
-            "Secp256k1New" => Ok(DeprecatedSyscallSelector::Secp256k1New),
-            "Secp256r1Add" => Ok(DeprecatedSyscallSelector::Secp256r1Add),
-            "Secp256r1GetPointFromX" => Ok(DeprecatedSyscallSelector::Secp256r1GetPointFromX),
-            "Secp256r1GetXy" => Ok(DeprecatedSyscallSelector::Secp256r1GetXy),
-            "Secp256r1Mul" => Ok(DeprecatedSyscallSelector::Secp256r1Mul),
-            "Secp256r1New" => Ok(DeprecatedSyscallSelector::Secp256r1New),
-            "SendMessageToL1" => Ok(DeprecatedSyscallSelector::SendMessageToL1),
-            "StorageRead" => Ok(DeprecatedSyscallSelector::StorageRead),
-            "StorageWrite" => Ok(DeprecatedSyscallSelector::StorageWrite),
-            "Sha256ProcessBlock" => Ok(DeprecatedSyscallSelector::Sha256ProcessBlock),
-            _ => Err(anyhow::anyhow!("Invalid DeprecatedSyscallSelector: {}", s)),
-        }
     }
 }
 
