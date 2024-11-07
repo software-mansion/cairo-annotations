@@ -2,6 +2,8 @@ use camino::Utf8PathBuf;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::ops::{AddAssign, Sub, SubAssign};
+use strum::VariantArray;
+use strum_macros::{Display, EnumString, VariantArray};
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
 pub struct ClassHash(pub String);
@@ -110,7 +112,19 @@ impl SubAssign<&VmExecutionResources> for VmExecutionResources {
     }
 }
 
-#[derive(Clone, Copy, Debug, Deserialize, Serialize, Eq, Hash, PartialEq)]
+#[derive(
+    Clone,
+    Copy,
+    Debug,
+    Display,
+    Deserialize,
+    Serialize,
+    Eq,
+    Hash,
+    PartialEq,
+    EnumString,
+    VariantArray,
+)]
 pub enum DeprecatedSyscallSelector {
     CallContract,
     DelegateCall,
@@ -144,6 +158,13 @@ pub enum DeprecatedSyscallSelector {
     StorageRead,
     StorageWrite,
     Sha256ProcessBlock,
+}
+
+impl DeprecatedSyscallSelector {
+    #[must_use]
+    pub fn all() -> &'static [Self] {
+        Self::VARIANTS
+    }
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
