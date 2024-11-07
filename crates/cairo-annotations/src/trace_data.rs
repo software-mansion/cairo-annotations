@@ -2,7 +2,8 @@ use camino::Utf8PathBuf;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::ops::{AddAssign, Sub, SubAssign};
-use strum_macros::{Display, EnumString};
+use strum::VariantArray;
+use strum_macros::{Display, EnumString, VariantArray};
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
 pub struct ClassHash(pub String);
@@ -111,7 +112,19 @@ impl SubAssign<&VmExecutionResources> for VmExecutionResources {
     }
 }
 
-#[derive(Clone, Copy, Debug, Display, Deserialize, Serialize, Eq, Hash, PartialEq, EnumString)]
+#[derive(
+    Clone,
+    Copy,
+    Debug,
+    Display,
+    Deserialize,
+    Serialize,
+    Eq,
+    Hash,
+    PartialEq,
+    EnumString,
+    VariantArray,
+)]
 pub enum DeprecatedSyscallSelector {
     CallContract,
     DelegateCall,
@@ -150,40 +163,7 @@ pub enum DeprecatedSyscallSelector {
 impl DeprecatedSyscallSelector {
     #[must_use]
     pub fn all() -> &'static [Self] {
-        &[
-            DeprecatedSyscallSelector::CallContract,
-            DeprecatedSyscallSelector::DelegateCall,
-            DeprecatedSyscallSelector::DelegateL1Handler,
-            DeprecatedSyscallSelector::Deploy,
-            DeprecatedSyscallSelector::EmitEvent,
-            DeprecatedSyscallSelector::GetBlockHash,
-            DeprecatedSyscallSelector::GetBlockNumber,
-            DeprecatedSyscallSelector::GetBlockTimestamp,
-            DeprecatedSyscallSelector::GetCallerAddress,
-            DeprecatedSyscallSelector::GetContractAddress,
-            DeprecatedSyscallSelector::GetExecutionInfo,
-            DeprecatedSyscallSelector::GetSequencerAddress,
-            DeprecatedSyscallSelector::GetTxInfo,
-            DeprecatedSyscallSelector::GetTxSignature,
-            DeprecatedSyscallSelector::Keccak,
-            DeprecatedSyscallSelector::LibraryCall,
-            DeprecatedSyscallSelector::LibraryCallL1Handler,
-            DeprecatedSyscallSelector::ReplaceClass,
-            DeprecatedSyscallSelector::Secp256k1Add,
-            DeprecatedSyscallSelector::Secp256k1GetPointFromX,
-            DeprecatedSyscallSelector::Secp256k1GetXy,
-            DeprecatedSyscallSelector::Secp256k1Mul,
-            DeprecatedSyscallSelector::Secp256k1New,
-            DeprecatedSyscallSelector::Secp256r1Add,
-            DeprecatedSyscallSelector::Secp256r1GetPointFromX,
-            DeprecatedSyscallSelector::Secp256r1GetXy,
-            DeprecatedSyscallSelector::Secp256r1Mul,
-            DeprecatedSyscallSelector::Secp256r1New,
-            DeprecatedSyscallSelector::SendMessageToL1,
-            DeprecatedSyscallSelector::StorageRead,
-            DeprecatedSyscallSelector::StorageWrite,
-            DeprecatedSyscallSelector::Sha256ProcessBlock,
-        ]
+        Self::VARIANTS
     }
 }
 
