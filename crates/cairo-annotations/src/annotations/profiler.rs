@@ -46,6 +46,7 @@ lazy_static! {
 pub struct FunctionName(pub String);
 
 impl FunctionName {
+    #[must_use]
     pub fn from_sierra_statement_idx(
         statement_idx: StatementIdx,
         sierra_program: &Program,
@@ -74,6 +75,7 @@ impl FunctionName {
     /// set `<unknown>` string).
     /// `address` and `selector` are optional and set if `--show-details` flag is enabled
     /// or names are unknown.
+    #[must_use]
     pub fn from_entry_point_params(
         contract_name: Option<String>,
         function_name: Option<String>,
