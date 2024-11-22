@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2024-11-22
+
+### Added
+
 - removed syscall_counter from ExecutionResources
 - wrapped CallTraceV1 into Box for better performance
 - implemented method `DeprecatedSyscallSelector::all()` for getting all possible libfuncs
 - added traits for `DeprecatedSyscallSelector` to allow its conversion from/to a string
+- added traits for `FunctionName` to allow its generation from entry point params and sierra statement idx
