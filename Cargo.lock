@@ -193,6 +193,8 @@ dependencies = [
  "cairo-lang-sierra-to-casm",
  "camino",
  "derive_more",
+ "lazy_static",
+ "regex",
  "serde",
  "serde_json",
  "snapbox",
