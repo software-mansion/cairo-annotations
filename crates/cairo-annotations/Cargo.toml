@@ -22,7 +22,6 @@ serde_json.workspace = true
 strum.workspace = true
 strum_macros.workspace = true
 regex.workspace = true
-lazy_static.workspace = true
 
 [dev-dependencies]
 assert_fs.workspace = true

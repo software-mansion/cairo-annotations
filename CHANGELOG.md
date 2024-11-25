@@ -15,4 +15,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - wrapped CallTraceV1 into Box for better performance
 - implemented method `DeprecatedSyscallSelector::all()` for getting all possible libfuncs
 - added traits for `DeprecatedSyscallSelector` to allow its conversion from/to a string
-- added traits for `FunctionName` to allow its generation from entry point params and sierra statement idx
+- added trait for `FunctionName` to allow its generation from sierra statement idx

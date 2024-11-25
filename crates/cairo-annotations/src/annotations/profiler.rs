@@ -1,10 +1,10 @@
 use crate::annotations::impl_helpers::impl_namespace;
 use cairo_lang_sierra::program::{Program, StatementIdx};
 use derive_more::Display;
-use lazy_static::lazy_static;
 use regex::Regex;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::collections::HashMap;
+use std::sync::LazyLock;
 
 /// Versioned representation of Profiler Annotations.
 ///
@@ -31,12 +31,13 @@ pub struct ProfilerAnnotationsV1 {
     pub statements_functions: HashMap<StatementIdx, Vec<FunctionName>>,
 }
 
-lazy_static! {
-    static ref RE_LOOP_FUNC: Regex = Regex::new(r"\[expr\d*\]")
-        .expect("Failed to create regex normalising loop functions names");
-    static ref RE_MONOMORPHIZATION: Regex = Regex::new(r"<.*>")
-        .expect("Failed to create regex normalising mononorphised generic functions names");
-}
+static RE_LOOP_FUNC: LazyLock<Regex> = LazyLock::new(|| {
+    Regex::new(r"\[expr\d*\]").expect("Failed to create regex for normalizing loop function names")
+});
+static RE_MONOMORPHIZATION: LazyLock<Regex> = LazyLock::new(|| {
+    Regex::new(r"<.*>")
+        .expect("Failed to create regex for normalizing monomorphized generic function names")
+});
 
 /// The fully qualified Cairo path of the Cairo function.
 #[derive(
@@ -45,6 +46,9 @@ lazy_static! {
 pub struct FunctionName(pub String);
 
 impl FunctionName {
+    /// Get `FunctionName` from given `sierra_statement_idx` and `sierra_program`
+    /// Depending on `split_generics`, the resulting `FunctionName` will retain or remove
+    /// the parameterization of generic types (eg <felt252>)
     #[must_use]
     pub fn from_sierra_statement_idx(
         statement_idx: StatementIdx,
