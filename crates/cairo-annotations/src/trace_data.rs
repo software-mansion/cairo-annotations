@@ -136,6 +136,7 @@ pub enum DeprecatedSyscallSelector {
     GetBlockTimestamp,
     GetCallerAddress,
     GetContractAddress,
+    GetClassHashAt,
     GetExecutionInfo,
     GetSequencerAddress,
     GetTxInfo,
