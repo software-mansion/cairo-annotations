@@ -21,10 +21,10 @@ cairo-lang-sierra = "2.8.4"
 camino = { version = "1.1.9", features = ["serde1"] }
 thiserror = "1.0.69"
 derive_more = { version = "1.0.0", features = ["add", "add_assign", "mul", "mul_assign", "display"] }
-serde = { version = "1.0.215", features = ["derive"] }
-serde_json = "1.0.133"
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.134"
 assert_fs = "1.1.2"
-snapbox = "0.6.20"
+snapbox = "0.6.21"
 strum = "0.26"
 strum_macros = "0.26"
 regex = "1.10"
