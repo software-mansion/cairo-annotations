@@ -17,7 +17,7 @@ fn test_versioned() {
 
     let code_locations = annotations
         .statements_code_locations
-        .get(&StatementIdx(331))
+        .get(&StatementIdx(215))
         .unwrap();
 
     assert_eq!(
@@ -26,12 +26,12 @@ fn test_versioned() {
             SourceFileFullPath(format!("{}/src/lib.cairo", trace_file.get_project_dir())),
             SourceCodeSpan {
                 start: SourceCodeLocation {
-                    line: LineNumber(7),
-                    col: ColumnNumber(4)
+                    line: LineNumber(10),
+                    col: ColumnNumber(12)
                 },
                 end: SourceCodeLocation {
-                    line: LineNumber(7),
-                    col: ColumnNumber(4)
+                    line: LineNumber(10),
+                    col: ColumnNumber(17)
                 }
             }
         )]
@@ -49,7 +49,7 @@ fn test_v1() {
 
     let code_locations = annotations
         .statements_code_locations
-        .get(&StatementIdx(331))
+        .get(&StatementIdx(215))
         .unwrap();
 
     assert_eq!(
@@ -58,12 +58,12 @@ fn test_v1() {
             SourceFileFullPath(format!("{}/src/lib.cairo", trace_file.get_project_dir())),
             SourceCodeSpan {
                 start: SourceCodeLocation {
-                    line: LineNumber(7),
-                    col: ColumnNumber(4)
+                    line: LineNumber(10),
+                    col: ColumnNumber(12)
                 },
                 end: SourceCodeLocation {
-                    line: LineNumber(7),
-                    col: ColumnNumber(4)
+                    line: LineNumber(10),
+                    col: ColumnNumber(17)
                 }
             }
         )]
