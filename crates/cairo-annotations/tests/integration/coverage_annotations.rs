@@ -33,7 +33,8 @@ fn test_versioned() {
                     line: LineNumber(10),
                     col: ColumnNumber(17)
                 }
-            }
+            },
+            None
         )]
     );
 }
@@ -49,8 +50,25 @@ fn test_v1() {
 
     let code_locations = annotations
         .statements_code_locations
-        .get(&StatementIdx(215))
+        .get(&StatementIdx(1136))
         .unwrap();
+
+    for x in &annotations.statements_code_locations {
+        for y in x.1 {
+             // if y.0.0.contains("[") {
+                 if let Some(z) =  y.2 {
+                     if !z {
+                        // panic!("{} {}", x.0, y.0.0);
+                     }
+                 }
+             // }
+            if let Some(z) =  y.2 {
+                if z {
+                    //println!("{}", x.0);
+                }
+            }
+        }
+    }
 
     assert_eq!(
         code_locations,
@@ -65,7 +83,8 @@ fn test_v1() {
                     line: LineNumber(10),
                     col: ColumnNumber(17)
                 }
-            }
+            },
+            None
         )]
     );
 }

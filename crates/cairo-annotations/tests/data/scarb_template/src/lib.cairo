@@ -5,6 +5,7 @@ fn main() -> u32 {
 fn fib(mut n: u32) -> u32 {
     let mut a: u32 = 0;
     let mut b: u32 = 1;
+    assert!(n < 47, "n must be less than 47");
     while n != 0 {
         n = n - 1;
         let temp = b;
