@@ -9,14 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `KeccakRound` to `DeprecatedSyscallSelector`
+- `KeccakRound` to `DeprecatedSyscallSelector` (introduced in starknet 0.13.4)
 
 ## [0.2.1] - 2024-11-27
 
 ### Added
 
 - `GetClassHashAt` to `DeprecatedSyscallSelector` (introduced in starknet 0.13.3)
-[CHANGELOG.md](CHANGELOG.md)
+
 ## [0.2.0] - 2024-11-22
 
 ### Added
