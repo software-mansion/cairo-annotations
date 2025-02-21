@@ -1,9 +1,9 @@
 use crate::helpers::test_project::TestProject;
+use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_annotations::annotations::coverage::{
     CodeLocation, ColumnNumber, CoverageAnnotationsV1, LineNumber, SourceCodeLocation,
     SourceCodeSpan, SourceFileFullPath, VersionedCoverageAnnotations,
 };
-use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_lang_sierra::program::StatementIdx;
 
 #[test]
