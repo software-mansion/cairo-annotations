@@ -1,10 +1,10 @@
-use assert_fs::fixture::PathCopy;
 use assert_fs::TempDir;
+use assert_fs::fixture::PathCopy;
 use cairo_annotations::trace_data::{CairoExecutionInfo, CasmLevelInfo, VersionedCallTrace};
 use cairo_lang_sierra::debug_info::DebugInfo;
 use cairo_lang_sierra::program::{ProgramArtifact, VersionedProgram};
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraToCasmConfig};
-use cairo_lang_sierra_to_casm::metadata::{calc_metadata, MetadataComputationConfig};
+use cairo_lang_sierra_to_casm::metadata::{MetadataComputationConfig, calc_metadata};
 use serde::de::DeserializeOwned;
 use snapbox::cmd::Command as SnapboxCommand;
 use std::fs;

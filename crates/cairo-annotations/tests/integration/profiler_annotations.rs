@@ -1,8 +1,8 @@
 use crate::helpers::test_project::TestProject;
+use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_annotations::annotations::profiler::{
     FunctionName, ProfilerAnnotationsV1, VersionedProfilerAnnotations,
 };
-use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_lang_sierra::program::StatementIdx;
 
 #[test]
