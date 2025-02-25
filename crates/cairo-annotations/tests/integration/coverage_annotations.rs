@@ -35,7 +35,8 @@ fn test_deserialization_versioned() {
                     line: LineNumber(10),
                     col: ColumnNumber(17)
                 }
-            }
+            },
+            None
         )]
     );
 }
@@ -67,7 +68,8 @@ fn test_deserialization_v1() {
                     line: LineNumber(10),
                     col: ColumnNumber(17)
                 }
-            }
+            },
+            None
         )]
     );
 }
