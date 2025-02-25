@@ -9,7 +9,13 @@ use serde::de::DeserializeOwned;
 use snapbox::cmd::Command as SnapboxCommand;
 use std::fs;
 use std::path::PathBuf;
+use std::sync::LazyLock;
 
+pub static SCARB_TEMPLATE_TRACE_FILE: LazyLock<TraceFile> = LazyLock::new(|| {
+    TestProject::new("scarb_template")
+        .generate_trace_files()
+        .first_trace_file()
+});
 pub struct TestProject {
     dir: TempDir,
 }

@@ -1,4 +1,4 @@
-use crate::helpers::test_project::TestProject;
+use crate::helpers::test_project::SCARB_TEMPLATE_TRACE_FILE;
 use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_annotations::annotations::coverage::{
     CodeLocation, ColumnNumber, CoverageAnnotationsV1, LineNumber, SourceCodeLocation,
@@ -8,12 +8,11 @@ use cairo_lang_sierra::program::StatementIdx;
 
 #[test]
 fn test_versioned() {
-    let trace_file = TestProject::new("scarb_template")
-        .generate_trace_files()
-        .first_trace_file();
-
     let VersionedCoverageAnnotations::V1(annotations) =
-        VersionedCoverageAnnotations::try_from_debug_info(trace_file.get_debug_info()).unwrap();
+        VersionedCoverageAnnotations::try_from_debug_info(
+            SCARB_TEMPLATE_TRACE_FILE.get_debug_info(),
+        )
+        .unwrap();
 
     let code_locations = annotations
         .statements_code_locations
@@ -23,7 +22,10 @@ fn test_versioned() {
     assert_eq!(
         code_locations,
         &[CodeLocation(
-            SourceFileFullPath(format!("{}/src/lib.cairo", trace_file.get_project_dir())),
+            SourceFileFullPath(format!(
+                "{}/src/lib.cairo",
+                SCARB_TEMPLATE_TRACE_FILE.get_project_dir()
+            )),
             SourceCodeSpan {
                 start: SourceCodeLocation {
                     line: LineNumber(10),
@@ -40,12 +42,9 @@ fn test_versioned() {
 
 #[test]
 fn test_v1() {
-    let trace_file = TestProject::new("scarb_template")
-        .generate_trace_files()
-        .first_trace_file();
-
     let annotations =
-        CoverageAnnotationsV1::try_from_debug_info(trace_file.get_debug_info()).unwrap();
+        CoverageAnnotationsV1::try_from_debug_info(SCARB_TEMPLATE_TRACE_FILE.get_debug_info())
+            .unwrap();
 
     let code_locations = annotations
         .statements_code_locations
@@ -55,7 +54,10 @@ fn test_v1() {
     assert_eq!(
         code_locations,
         &[CodeLocation(
-            SourceFileFullPath(format!("{}/src/lib.cairo", trace_file.get_project_dir())),
+            SourceFileFullPath(format!(
+                "{}/src/lib.cairo",
+                SCARB_TEMPLATE_TRACE_FILE.get_project_dir()
+            )),
             SourceCodeSpan {
                 start: SourceCodeLocation {
                     line: LineNumber(10),
