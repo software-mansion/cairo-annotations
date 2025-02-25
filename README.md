@@ -55,7 +55,8 @@ assert_eq!(
         SourceCodeSpan {
             start: SourceCodeLocation { line: LineNumber(7), col: ColumnNumber(4) },
             end: SourceCodeLocation { line: LineNumber(7), col: ColumnNumber(4) },
-        }
+        },
+        None
     )]
 );
 ```
