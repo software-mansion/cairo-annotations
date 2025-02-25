@@ -7,7 +7,7 @@ use cairo_annotations::annotations::coverage::{
 use cairo_lang_sierra::program::StatementIdx;
 
 #[test]
-fn test_versioned() {
+fn test_deserialization_versioned() {
     let VersionedCoverageAnnotations::V1(annotations) =
         VersionedCoverageAnnotations::try_from_debug_info(
             SCARB_TEMPLATE_TRACE_FILE.get_debug_info(),
@@ -41,7 +41,7 @@ fn test_versioned() {
 }
 
 #[test]
-fn test_v1() {
+fn test_deserialization_v1() {
     let annotations =
         CoverageAnnotationsV1::try_from_debug_info(SCARB_TEMPLATE_TRACE_FILE.get_debug_info())
             .unwrap();
@@ -70,4 +70,32 @@ fn test_v1() {
             }
         )]
     );
+}
+
+#[test]
+fn test_serialization_versioned() {
+    let debug_info = SCARB_TEMPLATE_TRACE_FILE.get_debug_info();
+    let annotations = VersionedCoverageAnnotations::try_from_debug_info(debug_info).unwrap();
+
+    let expected = debug_info
+        .annotations
+        .get("github.com/software-mansion/cairo-coverage")
+        .unwrap();
+
+    assert_eq!(&serde_json::to_value(&annotations).unwrap(), expected);
+}
+
+#[test]
+fn test_serialization_v1() {
+    let debug_info = SCARB_TEMPLATE_TRACE_FILE.get_debug_info();
+    let annotations =
+        CoverageAnnotationsV1::try_from_debug_info(SCARB_TEMPLATE_TRACE_FILE.get_debug_info())
+            .unwrap();
+
+    let expected = debug_info
+        .annotations
+        .get("github.com/software-mansion/cairo-coverage")
+        .unwrap();
+
+    assert_eq!(&serde_json::to_value(&annotations).unwrap(), expected);
 }
