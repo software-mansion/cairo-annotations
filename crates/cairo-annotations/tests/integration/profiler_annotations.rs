@@ -1,4 +1,4 @@
-use crate::helpers::test_project::TestProject;
+use crate::helpers::test_project::SCARB_TEMPLATE_TRACE_FILE;
 use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_annotations::annotations::profiler::{
     FunctionName, ProfilerAnnotationsV1, VersionedProfilerAnnotations,
@@ -7,12 +7,11 @@ use cairo_lang_sierra::program::StatementIdx;
 
 #[test]
 fn test_versioned() {
-    let trace_file = TestProject::new("scarb_template")
-        .generate_trace_files()
-        .first_trace_file();
-
     let VersionedProfilerAnnotations::V1(annotations) =
-        VersionedProfilerAnnotations::try_from_debug_info(trace_file.get_debug_info()).unwrap();
+        VersionedProfilerAnnotations::try_from_debug_info(
+            SCARB_TEMPLATE_TRACE_FILE.get_debug_info(),
+        )
+        .unwrap();
 
     let functions_names = annotations
         .statements_functions
@@ -27,12 +26,9 @@ fn test_versioned() {
 
 #[test]
 fn test_v1() {
-    let trace_file = TestProject::new("scarb_template")
-        .generate_trace_files()
-        .first_trace_file();
-
     let annotations =
-        ProfilerAnnotationsV1::try_from_debug_info(trace_file.get_debug_info()).unwrap();
+        ProfilerAnnotationsV1::try_from_debug_info(SCARB_TEMPLATE_TRACE_FILE.get_debug_info())
+            .unwrap();
 
     let functions_names = annotations
         .statements_functions
