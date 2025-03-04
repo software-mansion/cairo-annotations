@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- optional `gas_consumed` field in `ExecutionResources` struct, to allow tracking sierra gas
+
 ## [0.3.0] - 2025-02-25
 
 ### Added
