@@ -66,6 +66,7 @@ pub struct TraceEntry {
 #[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct ExecutionResources {
     pub vm_resources: VmExecutionResources,
+    pub gas_consumed: Option<u64>,
 }
 
 impl AddAssign<&ExecutionResources> for ExecutionResources {
