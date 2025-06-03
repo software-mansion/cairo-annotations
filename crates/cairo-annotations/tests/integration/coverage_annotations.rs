@@ -16,7 +16,7 @@ fn test_deserialization_versioned() {
 
     let code_locations = annotations
         .statements_code_locations
-        .get(&StatementIdx(215))
+        .get(&StatementIdx(299))
         .unwrap();
 
     assert_eq!(
@@ -36,7 +36,7 @@ fn test_deserialization_versioned() {
                     col: ColumnNumber(17)
                 }
             },
-            None
+            Some(false)
         )]
     );
 }
@@ -49,7 +49,7 @@ fn test_deserialization_v1() {
 
     let code_locations = annotations
         .statements_code_locations
-        .get(&StatementIdx(215))
+        .get(&StatementIdx(299))
         .unwrap();
 
     assert_eq!(
@@ -69,7 +69,7 @@ fn test_deserialization_v1() {
                     col: ColumnNumber(17)
                 }
             },
-            None
+            Some(false)
         )]
     );
 }

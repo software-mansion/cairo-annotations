@@ -15,7 +15,7 @@ fn test_versioned() {
 
     let functions_names = annotations
         .statements_functions
-        .get(&StatementIdx(215))
+        .get(&StatementIdx(299))
         .unwrap();
 
     assert_eq!(
@@ -32,7 +32,7 @@ fn test_v1() {
 
     let functions_names = annotations
         .statements_functions
-        .get(&StatementIdx(215))
+        .get(&StatementIdx(299))
         .unwrap();
 
     assert_eq!(
