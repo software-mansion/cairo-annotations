@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - optional `gas_consumed` field in `ExecutionResources` struct, to allow tracking sierra gas
+- `MetaTxV0` to `DeprecatedSyscallSelector` (introduced in starknet 0.14.0)
 
 ## [0.3.0] - 2025-02-25
 
