@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024_07"
 
 [dev-dependencies]
-snforge_std = "0.37.0"
+snforge_std = "0.44.0"
 
 [profile.dev.cairo]
 unstable-add-statements-functions-debug-info = true
