@@ -69,21 +69,6 @@ pub struct ExecutionResources {
     pub gas_consumed: Option<u64>,
 }
 
-impl AddAssign<&ExecutionResources> for ExecutionResources {
-    fn add_assign(&mut self, rhs: &ExecutionResources) {
-        self.vm_resources += &rhs.vm_resources;
-    }
-}
-
-impl Sub<&ExecutionResources> for &ExecutionResources {
-    type Output = ExecutionResources;
-
-    fn sub(self, rhs: &ExecutionResources) -> Self::Output {
-        let mut result = self.clone();
-        result.vm_resources -= &rhs.vm_resources;
-        result
-    }
-}
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize, Eq, PartialEq)]
 pub struct VmExecutionResources {
@@ -92,26 +77,7 @@ pub struct VmExecutionResources {
     pub builtin_instance_counter: HashMap<String, usize>,
 }
 
-impl AddAssign<&VmExecutionResources> for VmExecutionResources {
-    fn add_assign(&mut self, rhs: &VmExecutionResources) {
-        self.n_steps += rhs.n_steps;
-        self.n_memory_holes += rhs.n_memory_holes;
-        for (k, v) in &rhs.builtin_instance_counter {
-            *self.builtin_instance_counter.entry(k.clone()).or_insert(0) += v;
-        }
-    }
-}
 
-impl SubAssign<&VmExecutionResources> for VmExecutionResources {
-    fn sub_assign(&mut self, rhs: &VmExecutionResources) {
-        self.n_steps -= rhs.n_steps;
-        self.n_memory_holes -= rhs.n_memory_holes;
-        for (k, v) in &rhs.builtin_instance_counter {
-            let entry = self.builtin_instance_counter.entry(k.clone()).or_insert(0);
-            *entry = (*entry).saturating_sub(*v);
-        }
-    }
-}
 
 #[derive(
     Clone,
