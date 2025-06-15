@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- `FunctionName::from_sierra_statement_idx` as it was mixing concepts. `FunctionName` should represent a function name
+  in
+  annotations, while this method was creating a function name from a sierra program.
+- functions related to adding, subtracting, and comparison of resources. We believe that this crate should mainly focus on
+  on api not logic, consumer of this crate should implement these functions on their own.
+
 ### Changed
 
-- `ClassHash`, `ContractAddress`, and `EntryPointSelector` underling type is now `starknet_types_core::felt::Felt` 
+- `ClassHash`, `ContractAddress`, and `EntryPointSelector` underling type is now `starknet_types_core::felt::Felt`
   instead of `String` for more standardized handling of these types.
 
 ## [0.3.1] - 2025-03-04
