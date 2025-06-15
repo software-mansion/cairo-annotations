@@ -64,10 +64,20 @@ pub struct TraceEntry {
     pub fp: usize,
 }
 
+type SyscallCounter = HashMap<DeprecatedSyscallSelector, SyscallUsage>;
+
+#[derive(Debug, Default, Clone, Deserialize, Serialize)]
+pub struct SyscallUsage {
+    pub call_count: usize,
+    pub linear_factor: usize,
+}
+
 #[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct ExecutionResources {
     pub vm_resources: VmExecutionResources,
     pub gas_consumed: Option<u64>,
+    /// Present for `snforge` >= `0.46.0`.
+    pub syscall_counter: Option<SyscallCounter>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize, Eq, PartialEq)]
