@@ -186,6 +186,7 @@ dependencies = [
  "serde",
  "serde_json",
  "snapbox",
+ "starknet-types-core",
  "strum",
  "strum_macros",
  "thiserror",

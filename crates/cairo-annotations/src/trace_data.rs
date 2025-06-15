@@ -1,18 +1,20 @@
+use crate::felt_deserialize::deserialize as felt_deserialize;
 use camino::Utf8PathBuf;
 use serde::{Deserialize, Serialize};
+use starknet_types_core::felt::Felt;
 use std::collections::HashMap;
 use std::ops::{AddAssign, Sub, SubAssign};
 use strum::VariantArray;
 use strum_macros::{Display, EnumString, VariantArray};
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
-pub struct ClassHash(pub String);
+pub struct ClassHash(#[serde(deserialize_with = "felt_deserialize")] pub Felt);
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
-pub struct ContractAddress(pub String);
+pub struct ContractAddress(#[serde(deserialize_with = "felt_deserialize")] pub Felt);
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
-pub struct EntryPointSelector(pub String);
+pub struct EntryPointSelector(#[serde(deserialize_with = "felt_deserialize")] pub Felt);
 
 /// Versioned representation of `CallTrace`.
 ///
