@@ -129,12 +129,6 @@ pub enum DeprecatedSyscallSelector {
     KeccakRound,
 }
 
-impl DeprecatedSyscallSelector {
-    #[must_use]
-    pub fn all() -> &'static [Self] {
-        Self::VARIANTS
-    }
-}
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
 pub struct CallEntryPoint {
