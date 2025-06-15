@@ -202,27 +202,6 @@ pub enum EntryPointType {
     L1Handler,
 }
 
-impl ExecutionResources {
-    #[must_use]
-    pub fn gt_eq_than(&self, other: &ExecutionResources) -> bool {
-        if self.vm_resources.n_steps < other.vm_resources.n_steps
-            || self.vm_resources.n_memory_holes < other.vm_resources.n_memory_holes
-        {
-            return false;
-        }
-
-        let self_builtin_counter = &self.vm_resources.builtin_instance_counter;
-        let other_builtin_counter = &other.vm_resources.builtin_instance_counter;
-        for (builtin, other_count) in other_builtin_counter {
-            let self_count = self_builtin_counter.get(builtin).unwrap_or(&0);
-            if self_count < other_count {
-                return false;
-            }
-        }
-
-        true
-    }
-}
 
 #[derive(Clone, Default, Debug, Serialize, Deserialize)]
 pub struct L1Resources {
