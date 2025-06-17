@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `ClassHash`, `ContractAddress`, and `EntryPointSelector` underling type is now `starknet_types_core::felt::Felt` 
+  instead of `String` for more standardized handling of these types.
+
 ## [0.3.1] - 2025-03-04
 
 ### Added
