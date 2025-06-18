@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `SyscallCounter` to `ExecutionResources`
+
 ### Removed
 
 - `FunctionName::from_sierra_statement_idx` as it was mixing concepts. `FunctionName` should represent a function name
