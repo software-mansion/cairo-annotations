@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2025-06-18
+
+### Added
+
+- `SyscallCounter` to `ExecutionResources`
+
+### Removed
+
+- `FunctionName::from_sierra_statement_idx` as it was mixing concepts. `FunctionName` should represent a function name
+  in
+  annotations, while this method was creating a function name from a sierra program.
+- functions related to adding, subtracting, and comparison of resources. Due to ambiguity in the meaning of these
+  operations, they were removed. Use `ExecutionResources` directly for resource management.
+
+### Changed
+
+- `ClassHash`, `ContractAddress`, and `EntryPointSelector` underling type is now `starknet_types_core::felt::Felt`
+  instead of `String` for more standardized handling of these types.
+
 ## [0.3.1] - 2025-03-04
 
 ### Added

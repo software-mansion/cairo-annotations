@@ -1,18 +1,19 @@
+use crate::felt_deserialize::deserialize as felt_deserialize;
 use camino::Utf8PathBuf;
 use serde::{Deserialize, Serialize};
+use starknet_types_core::felt::Felt;
 use std::collections::HashMap;
-use std::ops::{AddAssign, Sub, SubAssign};
 use strum::VariantArray;
 use strum_macros::{Display, EnumString, VariantArray};
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
-pub struct ClassHash(pub String);
+pub struct ClassHash(#[serde(deserialize_with = "felt_deserialize")] pub Felt);
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
-pub struct ContractAddress(pub String);
+pub struct ContractAddress(#[serde(deserialize_with = "felt_deserialize")] pub Felt);
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
-pub struct EntryPointSelector(pub String);
+pub struct EntryPointSelector(#[serde(deserialize_with = "felt_deserialize")] pub Felt);
 
 /// Versioned representation of `CallTrace`.
 ///
@@ -63,26 +64,20 @@ pub struct TraceEntry {
     pub fp: usize,
 }
 
+type SyscallCounter = HashMap<DeprecatedSyscallSelector, SyscallUsage>;
+
+#[derive(Debug, Default, Clone, Deserialize, Serialize)]
+pub struct SyscallUsage {
+    pub call_count: usize,
+    pub linear_factor: usize,
+}
+
 #[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct ExecutionResources {
     pub vm_resources: VmExecutionResources,
     pub gas_consumed: Option<u64>,
-}
-
-impl AddAssign<&ExecutionResources> for ExecutionResources {
-    fn add_assign(&mut self, rhs: &ExecutionResources) {
-        self.vm_resources += &rhs.vm_resources;
-    }
-}
-
-impl Sub<&ExecutionResources> for &ExecutionResources {
-    type Output = ExecutionResources;
-
-    fn sub(self, rhs: &ExecutionResources) -> Self::Output {
-        let mut result = self.clone();
-        result.vm_resources -= &rhs.vm_resources;
-        result
-    }
+    /// Present for `snforge` >= `0.46.0`.
+    pub syscall_counter: Option<SyscallCounter>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize, Eq, PartialEq)]
@@ -90,27 +85,6 @@ pub struct VmExecutionResources {
     pub n_steps: usize,
     pub n_memory_holes: usize,
     pub builtin_instance_counter: HashMap<String, usize>,
-}
-
-impl AddAssign<&VmExecutionResources> for VmExecutionResources {
-    fn add_assign(&mut self, rhs: &VmExecutionResources) {
-        self.n_steps += rhs.n_steps;
-        self.n_memory_holes += rhs.n_memory_holes;
-        for (k, v) in &rhs.builtin_instance_counter {
-            *self.builtin_instance_counter.entry(k.clone()).or_insert(0) += v;
-        }
-    }
-}
-
-impl SubAssign<&VmExecutionResources> for VmExecutionResources {
-    fn sub_assign(&mut self, rhs: &VmExecutionResources) {
-        self.n_steps -= rhs.n_steps;
-        self.n_memory_holes -= rhs.n_memory_holes;
-        for (k, v) in &rhs.builtin_instance_counter {
-            let entry = self.builtin_instance_counter.entry(k.clone()).or_insert(0);
-            *entry = (*entry).saturating_sub(*v);
-        }
-    }
 }
 
 #[derive(
@@ -201,28 +175,6 @@ pub enum EntryPointType {
     External,
     #[serde(rename = "L1_HANDLER")]
     L1Handler,
-}
-
-impl ExecutionResources {
-    #[must_use]
-    pub fn gt_eq_than(&self, other: &ExecutionResources) -> bool {
-        if self.vm_resources.n_steps < other.vm_resources.n_steps
-            || self.vm_resources.n_memory_holes < other.vm_resources.n_memory_holes
-        {
-            return false;
-        }
-
-        let self_builtin_counter = &self.vm_resources.builtin_instance_counter;
-        let other_builtin_counter = &other.vm_resources.builtin_instance_counter;
-        for (builtin, other_count) in other_builtin_counter {
-            let self_count = self_builtin_counter.get(builtin).unwrap_or(&0);
-            if self_count < other_count {
-                return false;
-            }
-        }
-
-        true
-    }
 }
 
 #[derive(Clone, Default, Debug, Serialize, Deserialize)]
