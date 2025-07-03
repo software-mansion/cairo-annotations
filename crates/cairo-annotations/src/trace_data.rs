@@ -6,6 +6,8 @@ use std::collections::HashMap;
 use strum::VariantArray;
 use strum_macros::{Display, EnumString, VariantArray};
 
+pub mod utils;
+
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
 pub struct ClassHash(#[serde(deserialize_with = "felt_deserialize")] pub Felt);
 
