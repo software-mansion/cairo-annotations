@@ -135,6 +135,7 @@ pub enum DeprecatedSyscallSelector {
     StorageWrite,
     Sha256ProcessBlock,
     KeccakRound,
+    MetaTxV0,
 }
 
 impl DeprecatedSyscallSelector {
