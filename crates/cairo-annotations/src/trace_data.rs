@@ -192,7 +192,7 @@ impl AddAssign<&VmExecutionResources> for VmExecutionResources {
             *self
                 .builtin_instance_counter
                 .entry(key.clone())
-                .or_insert(0) += *value;
+                .or_default() += *value;
         }
     }
 }
@@ -223,32 +223,15 @@ impl AddAssign<&ExecutionResources> for ExecutionResources {
         };
 
         if let Some(other_counter) = &other.syscall_counter {
-            if let Some(self_counter) = &mut self.syscall_counter {
-                for (selector, usage) in other_counter {
-                    self_counter
-                        .entry(*selector)
-                        .and_modify(|existing| {
-                            existing.call_count += usage.call_count;
-                            existing.linear_factor += usage.linear_factor;
-                        })
-                        .or_insert_with(|| SyscallUsage {
-                            call_count: usage.call_count,
-                            linear_factor: usage.linear_factor,
-                        });
-                }
-            } else {
-                // If self doesn't have a counter but other does, clone other's counter
-                let mut new_counter = HashMap::new();
-                for (selector, usage) in other_counter {
-                    new_counter.insert(
-                        *selector,
-                        SyscallUsage {
-                            call_count: usage.call_count,
-                            linear_factor: usage.linear_factor,
-                        },
-                    );
-                }
-                self.syscall_counter = Some(new_counter);
+            let self_counter = self.syscall_counter.get_or_insert_with(HashMap::new);
+            for (&selector, usage) in other_counter {
+                self_counter
+                    .entry(selector)
+                    .and_modify(|existing| {
+                        existing.call_count += usage.call_count;
+                        existing.linear_factor += usage.linear_factor;
+                    })
+                    .or_insert_with(|| usage.clone());
             }
         }
     }
@@ -258,25 +241,24 @@ impl SubAssign<&ExecutionResources> for ExecutionResources {
     fn sub_assign(&mut self, other: &ExecutionResources) {
         self.vm_resources -= &other.vm_resources;
 
-        if let Some(other_gas) = other.gas_consumed {
-            if let Some(self_gas) = &mut self.gas_consumed {
-                *self_gas = self_gas.saturating_sub(other_gas);
-            }
+        if let Some(other_gas) = other.gas_consumed
+            && let Some(self_gas) = &mut self.gas_consumed
+        {
+            *self_gas = self_gas.saturating_sub(other_gas);
         }
 
-        if let Some(other_counter) = &other.syscall_counter {
-            if let Some(self_counter) = &mut self.syscall_counter {
-                for (selector, usage) in other_counter {
-                    if let Some(self_usage) = self_counter.get_mut(selector) {
-                        self_usage.call_count =
-                            self_usage.call_count.saturating_sub(usage.call_count);
-                        self_usage.linear_factor =
-                            self_usage.linear_factor.saturating_sub(usage.linear_factor);
-                    }
+        if let Some(self_counter) = &mut self.syscall_counter
+            && let Some(other_counter) = &other.syscall_counter
+        {
+            for (selector, usage) in other_counter {
+                if let Some(self_usage) = self_counter.get_mut(selector) {
+                    self_usage.call_count = self_usage.call_count.saturating_sub(usage.call_count);
+                    self_usage.linear_factor =
+                        self_usage.linear_factor.saturating_sub(usage.linear_factor);
                 }
-                // Remove entries where both values are 0
-                self_counter.retain(|_, usage| usage.call_count > 0 || usage.linear_factor > 0);
             }
+            // Remove entries where both values are 0
+            self_counter.retain(|_, usage| usage.call_count > 0 || usage.linear_factor > 0);
         }
     }
 }
