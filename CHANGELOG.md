@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `MetaTxV0` to `DeprecatedSyscallSelector` (introduced in starknet 0.14.0)
+- functions to enable adding and subtracting `ExecutionResources`
 
 ## [0.4.0] - 2025-06-18
 
@@ -17,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `SyscallCounter` to `ExecutionResources`
 
-### Removed
+### Removedg
 
 - `FunctionName::from_sierra_statement_idx` as it was mixing concepts. `FunctionName` should represent a function name
   in
