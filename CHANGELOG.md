@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `MetaTxV0` to `DeprecatedSyscallSelector` (introduced in starknet 0.14.0)
-- functions to enable adding and subtracting `ExecutionResources`
+- functions to enable adding and subtracting `ExecutionResources` and `VmExecutionResources`
 
 ## [0.4.0] - 2025-06-18
 
