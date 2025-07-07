@@ -9,22 +9,20 @@ fn test_vm_execution_resources_add() {
     let mut vm1 = VmExecutionResources {
         n_steps: 10,
         n_memory_holes: 5,
-        builtin_instance_counter: HashMap::new(),
+        builtin_instance_counter: HashMap::from([
+            ("builtin1".to_string(), 3),
+            ("builtin2".to_string(), 2),
+        ]),
     };
-    vm1.builtin_instance_counter
-        .insert("builtin1".to_string(), 3);
-    vm1.builtin_instance_counter
-        .insert("builtin2".to_string(), 2);
 
-    let mut vm2 = VmExecutionResources {
+    let vm2 = VmExecutionResources {
         n_steps: 20,
         n_memory_holes: 8,
-        builtin_instance_counter: HashMap::new(),
+        builtin_instance_counter: HashMap::from([
+            ("builtin2".to_string(), 4),
+            ("builtin3".to_string(), 1),
+        ]),
     };
-    vm2.builtin_instance_counter
-        .insert("builtin2".to_string(), 4);
-    vm2.builtin_instance_counter
-        .insert("builtin3".to_string(), 1);
 
     vm1 += &vm2;
 
@@ -40,26 +38,22 @@ fn test_vm_execution_resources_sub() {
     let mut vm1 = VmExecutionResources {
         n_steps: 30,
         n_memory_holes: 15,
-        builtin_instance_counter: HashMap::new(),
+        builtin_instance_counter: HashMap::from([
+            ("builtin1".to_string(), 5),
+            ("builtin2".to_string(), 8),
+            ("builtin3".to_string(), 3),
+        ]),
     };
-    vm1.builtin_instance_counter
-        .insert("builtin1".to_string(), 5);
-    vm1.builtin_instance_counter
-        .insert("builtin2".to_string(), 8);
-    vm1.builtin_instance_counter
-        .insert("builtin3".to_string(), 3);
 
-    let mut vm2 = VmExecutionResources {
+    let vm2 = VmExecutionResources {
         n_steps: 10,
         n_memory_holes: 5,
-        builtin_instance_counter: HashMap::new(),
+        builtin_instance_counter: HashMap::from([
+            ("builtin1".to_string(), 2),
+            ("builtin2".to_string(), 8), // This will become 0 and should be removed
+            ("builtin4".to_string(), 1), // This key doesn't exist in vm1
+        ]),
     };
-    vm2.builtin_instance_counter
-        .insert("builtin1".to_string(), 2);
-    vm2.builtin_instance_counter
-        .insert("builtin2".to_string(), 8); // This will become 0 and should be removed
-    vm2.builtin_instance_counter
-        .insert("builtin4".to_string(), 1); // This key doesn't exist in vm1
 
     vm1 -= &vm2;
 
@@ -73,46 +67,42 @@ fn test_vm_execution_resources_sub() {
 
 #[test]
 fn test_execution_resources_add() {
-    let mut vm1 = VmExecutionResources {
+    let vm1 = VmExecutionResources {
         n_steps: 10,
         n_memory_holes: 5,
-        builtin_instance_counter: HashMap::new(),
+        builtin_instance_counter: HashMap::from([("builtin1".to_string(), 3)]),
     };
-    vm1.builtin_instance_counter
-        .insert("builtin1".to_string(), 3);
 
-    let mut vm2 = VmExecutionResources {
+    let vm2 = VmExecutionResources {
         n_steps: 20,
         n_memory_holes: 8,
-        builtin_instance_counter: HashMap::new(),
+        builtin_instance_counter: HashMap::from([("builtin2".to_string(), 4)]),
     };
-    vm2.builtin_instance_counter
-        .insert("builtin2".to_string(), 4);
 
-    let mut syscall_counter1 = HashMap::new();
-    syscall_counter1.insert(
+    let syscall_counter1 = HashMap::from([(
         DeprecatedSyscallSelector::Deploy,
         SyscallUsage {
             call_count: 2,
             linear_factor: 3,
         },
-    );
+    )]);
 
-    let mut syscall_counter2 = HashMap::new();
-    syscall_counter2.insert(
-        DeprecatedSyscallSelector::Deploy,
-        SyscallUsage {
-            call_count: 1,
-            linear_factor: 2,
-        },
-    );
-    syscall_counter2.insert(
-        DeprecatedSyscallSelector::EmitEvent,
-        SyscallUsage {
-            call_count: 3,
-            linear_factor: 0,
-        },
-    );
+    let syscall_counter2 = HashMap::from([
+        (
+            DeprecatedSyscallSelector::Deploy,
+            SyscallUsage {
+                call_count: 1,
+                linear_factor: 2,
+            },
+        ),
+        (
+            DeprecatedSyscallSelector::EmitEvent,
+            SyscallUsage {
+                call_count: 3,
+                linear_factor: 0,
+            },
+        ),
+    ]);
 
     let mut er1 = ExecutionResources {
         vm_resources: vm1,
@@ -148,53 +138,51 @@ fn test_execution_resources_add() {
 
 #[test]
 fn test_execution_resources_sub() {
-    let mut vm1 = VmExecutionResources {
+    let vm1 = VmExecutionResources {
         n_steps: 30,
         n_memory_holes: 15,
-        builtin_instance_counter: HashMap::new(),
+        builtin_instance_counter: HashMap::from([("builtin1".to_string(), 5)]),
     };
-    vm1.builtin_instance_counter
-        .insert("builtin1".to_string(), 5);
 
-    let mut vm2 = VmExecutionResources {
+    let vm2 = VmExecutionResources {
         n_steps: 10,
         n_memory_holes: 5,
-        builtin_instance_counter: HashMap::new(),
+        builtin_instance_counter: HashMap::from([("builtin1".to_string(), 2)]),
     };
-    vm2.builtin_instance_counter
-        .insert("builtin1".to_string(), 2);
 
-    let mut syscall_counter1 = HashMap::new();
-    syscall_counter1.insert(
-        DeprecatedSyscallSelector::Deploy,
-        SyscallUsage {
-            call_count: 5,
-            linear_factor: 7,
-        },
-    );
-    syscall_counter1.insert(
-        DeprecatedSyscallSelector::EmitEvent,
-        SyscallUsage {
-            call_count: 3,
-            linear_factor: 0,
-        },
-    );
+    let syscall_counter1 = HashMap::from([
+        (
+            DeprecatedSyscallSelector::Deploy,
+            SyscallUsage {
+                call_count: 5,
+                linear_factor: 7,
+            },
+        ),
+        (
+            DeprecatedSyscallSelector::EmitEvent,
+            SyscallUsage {
+                call_count: 3,
+                linear_factor: 0,
+            },
+        ),
+    ]);
 
-    let mut syscall_counter2 = HashMap::new();
-    syscall_counter2.insert(
-        DeprecatedSyscallSelector::Deploy,
-        SyscallUsage {
-            call_count: 2,
-            linear_factor: 3,
-        },
-    );
-    syscall_counter2.insert(
-        DeprecatedSyscallSelector::EmitEvent,
-        SyscallUsage {
-            call_count: 3,
-            linear_factor: 0,
-        },
-    ); // This will become 0 and should be removed
+    let syscall_counter2 = HashMap::from([
+        (
+            DeprecatedSyscallSelector::Deploy,
+            SyscallUsage {
+                call_count: 2,
+                linear_factor: 3,
+            },
+        ),
+        (
+            DeprecatedSyscallSelector::EmitEvent,
+            SyscallUsage {
+                call_count: 3,
+                linear_factor: 0,
+            },
+        ), // This will become 0 and should be removed
+    ]);
 
     let mut er1 = ExecutionResources {
         vm_resources: vm1,
