@@ -158,6 +158,8 @@ pub struct CallEntryPoint {
     pub contract_name: Option<String>,
     /// Function name to display instead of entry point selector
     pub function_name: Option<String>,
+    /// Calldata length to use for syscall cost estimation
+    pub calldata_len: Option<usize>,
 }
 
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Deserialize, Serialize)]
