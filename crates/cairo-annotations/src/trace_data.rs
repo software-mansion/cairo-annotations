@@ -159,6 +159,7 @@ pub struct CallEntryPoint {
     /// Function name to display instead of entry point selector
     pub function_name: Option<String>,
     /// Calldata length to use for syscall cost estimation
+    /// Present for `snforge` >= `0.48.0`.
     pub calldata_len: Option<usize>,
 }
 
