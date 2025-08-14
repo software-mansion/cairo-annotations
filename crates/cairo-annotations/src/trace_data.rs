@@ -161,6 +161,12 @@ pub struct CallEntryPoint {
     /// Calldata length to use for syscall cost estimation
     /// Present for `snforge` >= `0.48.0`.
     pub calldata_len: Option<usize>,
+    /// Events information to use for l2 gas cost estimation
+    /// Present for `snforge` >= `0.49.0`
+    pub events_summary: Option<Vec<SummedUpEvent>>,
+    /// Signature length to use for l2 gas cost estimation
+    /// Present for `snforge` >= `0.49.0`
+    pub signature_len: Option<usize>,
 }
 
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Deserialize, Serialize)]
@@ -264,4 +270,10 @@ impl SubAssign<&ExecutionResources> for ExecutionResources {
             self_counter.retain(|_, usage| usage.call_count > 0 || usage.linear_factor > 0);
         }
     }
+}
+
+#[derive(Debug, Clone, Default, Eq, PartialEq, Serialize, Deserialize)]
+pub struct SummedUpEvent {
+    pub keys_len: usize,
+    pub data_len: usize,
 }
