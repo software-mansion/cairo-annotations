@@ -236,9 +236,9 @@ dependencies = [
 
 [[package]]
 name = "cairo-lang-sierra"
-version = "2.12.0"
+version = "2.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "104eba8e6509ecd4e96cac9cd3dee9f0c698bfc8cba0097b32f6378eaac3edd8"
+checksum = "dc19ef658d46da7735185397e04791e841168dc0ae3ad762f1bf48f2a490720d"
 dependencies = [
  "anyhow",
  "cairo-lang-utils",
@@ -326,9 +326,9 @@ dependencies = [
 
 [[package]]
 name = "cairo-lang-utils"
-version = "2.12.0"
+version = "2.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3443f4fc17986f362f5b87cd8c37dafeadf5e0a0909a19f2541cd55baae25a74"
+checksum = "6e414e98233e2d0ee7a4259e39e4281092aab91f0cc4f1335c63dc44d1abeeff"
 dependencies = [
  "hashbrown 0.15.4",
  "indexmap 2.10.0",
