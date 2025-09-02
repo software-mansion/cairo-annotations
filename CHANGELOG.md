@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2025-09-02
+
+### Changed
+
+- Reverted `starknet-types-core` from `0.1.9` to `0.1.8` due to incompatibility issues with Starknet Foundry.
+
 ## [0.5.1] - 2025-08-14
 
 ### Added
