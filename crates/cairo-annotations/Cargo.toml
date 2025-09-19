@@ -12,8 +12,8 @@ readme.workspace = true
 repository.workspace = true
 
 [dependencies]
-cairo-lang-sierra-to-casm.workspace = true
-cairo-lang-sierra.workspace = true
+cairo-lang-sierra-to-casm = { workspace = true, optional = true }
+cairo-lang-sierra = { workspace = true, optional = true }
 starknet-types-core.workspace = true
 camino.workspace = true
 thiserror.workspace = true
@@ -27,3 +27,8 @@ regex.workspace = true
 [dev-dependencies]
 assert_fs.workspace = true
 snapbox.workspace = true
+
+[features]
+default = ["cairo-lang"]
+cairo-lang = ["dep:cairo-lang-sierra-to-casm", "dep:cairo-lang-sierra"]
+no-cairo-lang = []
