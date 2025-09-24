@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Split cairo-annotations with "cairo-lang" (default) and "no-cairo-lang" features
+- Split cairo-annotations with "cairo-lang" feature (off by default)
 
 ## [0.5.2] - 2025-09-02
 
