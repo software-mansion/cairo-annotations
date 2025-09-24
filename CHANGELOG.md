@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2025-09-24
+
+### Added
+
+- Optional `enable_gas` field to `CairoExecutionInfo`
+
+### Changed
+
+- Split cairo-annotations with "cairo-lang" feature (off by default)
+
 ## [0.5.2] - 2025-09-02
 
 ### Changed

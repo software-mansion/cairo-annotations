@@ -43,6 +43,8 @@ pub struct CairoExecutionInfo {
     /// Path to a file with serialized `ContractClass` or `VersionedProgram`.
     pub source_sierra_path: Utf8PathBuf,
     pub casm_level_info: CasmLevelInfo,
+    /// `enable-gas` option from [cairo] section in `Scarb.toml`
+    pub enable_gas: Option<bool>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
