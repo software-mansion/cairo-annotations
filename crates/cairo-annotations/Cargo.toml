@@ -27,8 +27,7 @@ regex.workspace = true
 [dev-dependencies]
 assert_fs.workspace = true
 snapbox.workspace = true
+cairo-annotations = { path = ".", features = ["cairo-lang"] }
 
 [features]
-default = ["cairo-lang"]
 cairo-lang = ["dep:cairo-lang-sierra-to-casm", "dep:cairo-lang-sierra"]
-no-cairo-lang = []

@@ -196,6 +196,7 @@ name = "cairo-annotations"
 version = "0.6.0"
 dependencies = [
  "assert_fs",
+ "cairo-annotations",
  "cairo-lang-sierra",
  "cairo-lang-sierra-to-casm",
  "camino",
