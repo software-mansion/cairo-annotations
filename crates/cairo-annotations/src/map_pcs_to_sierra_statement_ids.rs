@@ -35,23 +35,32 @@ pub fn map_pcs_to_sierra_statement_ids(
         run_with_call_header,
         vm_trace,
     }: &CasmLevelInfo,
+    header_size: Option<usize>,
 ) -> Vec<MappingResult> {
     if sierra_statement_info.is_empty() {
         return Vec::new();
     }
 
-    // Some CASM programs starts with a header of instructions to wrap the real program.
+    // Some CASM programs starts with a header(s) of instructions to wrap the real program.
     // `real_minimal_pc` is the PC in the trace that points to the same CASM instruction which would
     // be in the PC=1 in the original CASM program.
-    // This is the same as the PC of the last trace entry plus 1, as the header is built to have
-    // a `ret` last instruction, which must be the last in the trace of any execution.
+    // If a header is built to have a `ret` last instruction, this is the same as the PC of the last
+    // trace entry plus 1. It may also end with something else like `jump rel 0` (like in case of
+    // scarb execute), then it's the same as the PC of the last trace entry plus 2.
     // The first instruction after that is the first instruction in the original CASM program.
     // This logic only applies when a header was added to the CASM program, otherwise the
     // `real_minimal_pc` is the default one, which is 1.
+    // In some cases there are more headers - an example being scarb execute target `standalone`,
+    // which has two: one with `jump rel 0` and a second one which size needs to be included to
+    // properly map pcs to statement ids.
+    // In order to accommodate such cases, there's an option to set custom header size here.
     let real_minimal_pc = run_with_call_header
         .then(|| vm_trace.last())
         .flatten()
-        .map_or(1, |trace_entry| trace_entry.pc + 1);
+        .map_or(1, |trace_entry| match header_size {
+            Some(size) => trace_entry.pc + size,
+            None => trace_entry.pc + 1,
+        });
 
     vm_trace
         .iter()

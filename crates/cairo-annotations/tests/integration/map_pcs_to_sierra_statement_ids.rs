@@ -9,6 +9,7 @@ fn test_happy_path() {
     let output = map_pcs_to_sierra_statement_ids(
         &SCARB_TEMPLATE_TRACE_FILE.get_casm_debug_info(),
         SCARB_TEMPLATE_TRACE_FILE.get_casm_level_info(),
+        None,
     );
 
     output.assert_same_as_in_file("map_pcs.txt");
@@ -21,6 +22,7 @@ fn test_empty_sierra_statement_info() {
             sierra_statement_info: Vec::new(),
         },
         SCARB_TEMPLATE_TRACE_FILE.get_casm_level_info(),
+        None,
     );
 
     assert!(output.is_empty());
@@ -36,6 +38,7 @@ fn test_empty_vm_trace() {
                 .get_casm_level_info()
                 .run_with_call_header,
         },
+        None,
     );
 
     assert!(output.is_empty());
