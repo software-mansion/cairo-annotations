@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-09-29
+
+### Changed
+
+- Allow setting custom header size in `map_pcs_to_sierra_statement_ids`
+
+### Added
+
+- Optional fields to `CairoExecutionInfo`: `execute_target`, `not_returning_header_size` and `program_offset`
+
 ## [0.6.1] - 2025-09-25
 
 ### Changed
