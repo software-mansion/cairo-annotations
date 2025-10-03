@@ -26,7 +26,7 @@ pub enum VersionedCallTrace {
 }
 
 /// Scarb execution target for the program.
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum ExecutionTarget {
     /// Bootloader target.
     Bootloader,
