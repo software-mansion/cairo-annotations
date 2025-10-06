@@ -34,8 +34,8 @@ pub fn map_pcs_to_sierra_statement_ids(
     CasmLevelInfo {
         run_with_call_header,
         vm_trace,
+        program_offset,
     }: &CasmLevelInfo,
-    header_size: Option<usize>,
 ) -> Vec<MappingResult> {
     if sierra_statement_info.is_empty() {
         return Vec::new();
@@ -53,14 +53,15 @@ pub fn map_pcs_to_sierra_statement_ids(
     // In some cases there are more headers - an example being scarb execute target `standalone`,
     // which has two: one with `jump rel 0` and a second one which size needs to be included to
     // properly map pcs to statement ids.
-    // In order to accommodate such cases, there's an option to set custom header size here.
-    let real_minimal_pc = run_with_call_header
-        .then(|| vm_trace.last())
-        .flatten()
-        .map_or(1, |trace_entry| match header_size {
-            Some(size) => trace_entry.pc + size,
-            None => trace_entry.pc + 1,
-        });
+    // In order to accommodate such cases, there's an option to set custom program offset here.
+    let real_minimal_pc = if let Some(offset) = program_offset {
+        offset + 1
+    } else {
+        run_with_call_header
+            .then(|| vm_trace.last())
+            .flatten()
+            .map_or(1, |trace_entry| trace_entry.pc + 1)
+    };
 
     vm_trace
         .iter()

@@ -25,15 +25,6 @@ pub enum VersionedCallTrace {
     V1(CallTraceV1),
 }
 
-/// Scarb execution target for the program.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub enum ExecutionTarget {
-    /// Bootloader target.
-    Bootloader,
-    /// Standalone target.
-    Standalone,
-}
-
 /// Tree structure representing trace of a call.
 /// This struct should be serialized and used as an input to cairo-profiler.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -54,18 +45,14 @@ pub struct CairoExecutionInfo {
     pub casm_level_info: CasmLevelInfo,
     /// `enable-gas` option from [cairo] section in `Scarb.toml`
     pub enable_gas: Option<bool>,
-    /// Scarb execution target
-    pub execute_target: Option<ExecutionTarget>,
-    /// Size of a non-returning header in executable target
-    pub not_returning_header_size: Option<usize>,
-    /// Executable program offset information
-    pub program_offset: Option<usize>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CasmLevelInfo {
     pub run_with_call_header: bool,
     pub vm_trace: Vec<TraceEntry>,
+    /// Executable program offset information
+    pub program_offset: Option<usize>,
 }
 
 /// Enum representing node of a trace of a call.
