@@ -51,6 +51,8 @@ pub struct CairoExecutionInfo {
 pub struct CasmLevelInfo {
     pub run_with_call_header: bool,
     pub vm_trace: Vec<TraceEntry>,
+    /// Executable program offset information
+    pub program_offset: Option<usize>,
 }
 
 /// Enum representing node of a trace of a call.

@@ -35,6 +35,7 @@ fn test_empty_vm_trace() {
             run_with_call_header: SCARB_TEMPLATE_TRACE_FILE
                 .get_casm_level_info()
                 .run_with_call_header,
+            program_offset: None,
         },
     );
 

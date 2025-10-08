@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-10-07
+
+### Changed
+
+- Allow setting custom program offset in `map_pcs_to_sierra_statement_ids` (new optional field `program_offset` in `CasmLevelInfo`)
+
 ## [0.6.1] - 2025-09-25
 
 ### Changed

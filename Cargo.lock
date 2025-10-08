@@ -193,7 +193,7 @@ checksum = "7575182f7272186991736b70173b0ea045398f984bf5ebbb3804736ce1330c9d"
 
 [[package]]
 name = "cairo-annotations"
-version = "0.6.1"
+version = "0.7.0"
 dependencies = [
  "assert_fs",
  "cairo-annotations",
