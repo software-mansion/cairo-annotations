@@ -34,9 +34,9 @@ dependencies = [
 
 [[package]]
 name = "anstyle"
-version = "1.0.11"
+version = "1.0.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "862ed96ca487e809f1c8e5a8447f6ee2cf102f846893800b20cebdf541fc6bbd"
+checksum = "5192cca8006f1fd4f7237516f40fa183bb07f8fbdfedaa0036de5ea9b0b45e78"
 
 [[package]]
 name = "anstyle-parse"
@@ -211,7 +211,7 @@ dependencies = [
  "serde",
  "serde_json",
  "snapbox",
- "starknet-types-core",
+ "starknet-types-core 1.0.0",
  "strum",
  "strum_macros",
  "thiserror",
@@ -264,7 +264,7 @@ dependencies = [
  "serde_json",
  "sha3",
  "smol_str",
- "starknet-types-core",
+ "starknet-types-core 0.2.4",
  "thiserror",
 ]
 
@@ -317,7 +317,7 @@ dependencies = [
  "itertools",
  "num-bigint",
  "num-traits",
- "starknet-types-core",
+ "starknet-types-core 0.2.4",
  "thiserror",
 ]
 
@@ -803,9 +803,9 @@ dependencies = [
 
 [[package]]
 name = "lambdaworks-crypto"
-version = "0.12.0"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fce8f59622ed408c318c9b5eca17f1a1154159e3738b5c4d5a22a0dd3700c906"
+checksum = "58b1a1c1102a5a7fbbda117b79fb3a01e033459c738a3c1642269603484fd1c1"
 dependencies = [
  "lambdaworks-math",
  "rand 0.8.5",
@@ -817,11 +817,13 @@ dependencies = [
 
 [[package]]
 name = "lambdaworks-math"
-version = "0.12.0"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "405d65a26831650ba348a503a2881ed7a0483ef3ec17f66e0fc8e2f9c97fc7ca"
+checksum = "018a95aa873eb49896a858dee0d925c33f3978d073c64b08dd4f2c9b35a017c6"
 dependencies = [
  "getrandom 0.2.16",
+ "num-bigint",
+ "num-traits",
  "rand 0.8.5",
  "serde",
  "serde_json",
@@ -1219,9 +1221,9 @@ dependencies = [
 
 [[package]]
 name = "regex"
-version = "1.11.3"
+version = "1.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b5288124840bee7b386bc413c487869b360b2b4ec421ea56425128692f2a82c"
+checksum = "843bc0191f75f3e22651ae5f1e72939ab2f72a4bc30fa80a066bd66edefc24d4"
 dependencies = [
  "aho-corasick",
  "memchr",
@@ -1231,9 +1233,9 @@ dependencies = [
 
 [[package]]
 name = "regex-automata"
-version = "0.4.11"
+version = "0.4.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "833eb9ce86d40ef33cb1306d8accf7bc8ec2bfea4355cbdebb3df68b40925cad"
+checksum = "5276caf25ac86c8d810222b3dbb938e512c55c6831a10f3e6ed1c93b84041f1c"
 dependencies = [
  "aho-corasick",
  "memchr",
@@ -1451,9 +1453,9 @@ dependencies = [
 
 [[package]]
 name = "snapbox"
-version = "0.6.21"
+version = "0.6.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "96dcfc4581e3355d70ac2ee14cfdf81dce3d85c85f1ed9e2c1d3013f53b3436b"
+checksum = "96fa1ce81be900d083b30ec2d481e6658c2acfaa2cfc7be45ccc2cc1b820edb3"
 dependencies = [
  "anstream",
  "anstyle",
@@ -1464,9 +1466,9 @@ dependencies = [
 
 [[package]]
 name = "snapbox-macros"
-version = "0.3.10"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "16569f53ca23a41bb6f62e0a5084aa1661f4814a67fa33696a79073e03a664af"
+checksum = "3b750c344002d7cc69afb9da00ebd9b5c0f8ac2eb7d115d9d45d5b5f47718d74"
 dependencies = [
  "anstream",
 ]
@@ -1491,15 +1493,32 @@ checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
 
 [[package]]
 name = "starknet-types-core"
-version = "0.2.2"
+version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "92eb6db1a763c350ffa50ed65ea3a92de9888239357cfbcb633e29a4da77f122"
+checksum = "90d23b1bc014ee4cce40056ab3114bcbcdc2dbc1e845bbfb1f8bd0bab63507d4"
 dependencies = [
  "blake2",
  "digest",
  "lambdaworks-crypto",
  "lambdaworks-math",
  "lazy_static",
+ "num-bigint",
+ "num-integer",
+ "num-traits",
+ "rand 0.9.2",
+ "serde",
+ "zeroize",
+]
+
+[[package]]
+name = "starknet-types-core"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8a12690813e587969cb4a9e7d8ebdb069d4bb7ec8d03275c5f719310c8e1f07c"
+dependencies = [
+ "generic-array",
+ "lambdaworks-crypto",
+ "lambdaworks-math",
  "num-bigint",
  "num-integer",
  "num-traits",
