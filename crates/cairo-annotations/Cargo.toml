@@ -14,6 +14,7 @@ repository.workspace = true
 [dependencies]
 cairo-lang-sierra-to-casm = { workspace = true, optional = true }
 cairo-lang-sierra = { workspace = true, optional = true }
+cairo-lang-sierra-type-size.workspace = true
 starknet-types-core.workspace = true
 camino.workspace = true
 thiserror.workspace = true

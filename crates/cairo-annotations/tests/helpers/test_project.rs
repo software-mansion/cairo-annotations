@@ -5,6 +5,7 @@ use cairo_lang_sierra::debug_info::DebugInfo;
 use cairo_lang_sierra::program::{ProgramArtifact, VersionedProgram};
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraToCasmConfig};
 use cairo_lang_sierra_to_casm::metadata::{MetadataComputationConfig, calc_metadata};
+use cairo_lang_sierra_type_size::ProgramRegistryInfo;
 use serde::de::DeserializeOwned;
 use snapbox::cmd::Command as SnapboxCommand;
 use std::fs;
@@ -90,9 +91,18 @@ impl TraceFile {
     }
 
     pub fn get_casm_debug_info(&self) -> CairoProgramDebugInfo {
+        let program = &self.program.program;
+        let program_registry_info = ProgramRegistryInfo::new(program).unwrap();
+
         cairo_lang_sierra_to_casm::compiler::compile(
-            &self.program.program,
-            &calc_metadata(&self.program.program, MetadataComputationConfig::default()).unwrap(),
+            program,
+            &program_registry_info,
+            &calc_metadata(
+                program,
+                &program_registry_info,
+                MetadataComputationConfig::default(),
+            )
+            .unwrap(),
             SierraToCasmConfig {
                 gas_usage_check: false,
                 max_bytecode_size: usize::MAX,
