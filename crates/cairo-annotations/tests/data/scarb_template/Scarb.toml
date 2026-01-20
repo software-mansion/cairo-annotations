@@ -9,4 +9,5 @@ snforge_std = "0.56.0"
 [profile.dev.cairo]
 unstable-add-statements-functions-debug-info = true
 unstable-add-statements-code-locations-debug-info = true
+add-functions-debug-info = true
 inlining-strategy = "avoid"
