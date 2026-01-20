@@ -13,7 +13,7 @@ pub enum VersionedCoverageAnnotations {
 }
 
 /// The mapping from sierra statement index
-/// to stack of a locations in Cairo code
+/// to a stack of locations in Cairo code
 /// which caused the statement to be generated.
 /// And all functions that were inlined
 /// or generated along the way up to the first non-inlined function from the original code.
@@ -107,10 +107,10 @@ pub struct SourceCodeSpan {
 /// A location in a Cairo source file.
 #[derive(Clone, Debug, Eq, PartialEq, Hash, Serialize, Deserialize)]
 pub struct SourceCodeLocation {
-    /// Line index, 0 based.
+    /// Line index, 0-based.
     /// Most editors show line numbers starting from 1, so when displaying to users, add 1 to this value.
     pub line: LineNumber,
-    /// Character index inside the line, 0 based.
+    /// Character index inside the line, 0-based.
     /// Most editors show column numbers starting from 1, so when displaying to users, add 1 to this value.
     pub col: ColumnNumber,
 }
