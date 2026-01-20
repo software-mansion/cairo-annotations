@@ -12,9 +12,10 @@ To see JSON example of the annotations, check the following [file](./examples/an
 `cairo-annotations` offers a structured representation, allowing for more ergonomic manipulation of annotations. Some
 key features include:
 
-- **Coverage Annotations**: Track locations in the Cairo code that correspond to specific Sierra statements.
-- **Profiler Annotations**: Provide mappings from Sierra statements to fully qualified Cairo paths, detailing which
+- [**Coverage Annotations**](#coverage-annotations): Track locations in the Cairo code that correspond to specific Sierra statements.
+- [**Profiler Annotations**](#profiler-annotations): Provide mappings from Sierra statements to fully qualified Cairo paths, detailing which
   functions in the Cairo code triggered them.
+- [**Debugger Annotations**](#debugger-annotations): TODO
 
 All annotations implement the `TryFromDebugInfo` trait, enabling their extraction from Sierra debug information. Here's
 a simple example:
@@ -89,6 +90,10 @@ assert_eq!(
     &[FunctionName("scarb_template::fib".into())]
 );
 ```
+
+### Debugger Annotations
+
+TODO
 
 ### Versioning
 
