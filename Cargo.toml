@@ -16,10 +16,10 @@ readme = "README.md"
 repository = "https://github.com/software-mansion/cairo-annotations"
 
 [workspace.dependencies]
-cairo-lang-sierra-to-casm = "2.13.1"
-cairo-lang-sierra = "2.13.1"
-cairo-lang-sierra-type-size = "2.13.1"
-starknet-types-core = "1.0.0"
+cairo-lang-sierra-to-casm = "2.14.1-dev.3"
+cairo-lang-sierra = "2.14.1-dev.3"
+cairo-lang-sierra-type-size = "2.14.1-dev.3"
+starknet-types-core = "0.2.4"# Sequencer dev-v0.18.0 is still on this version
 camino = { version = "1.2.2", features = ["serde1"] }
 thiserror = "2.0.17"
 derive_more = { version = "2.1.1", features = ["add", "add_assign", "mul", "mul_assign", "display"] }
