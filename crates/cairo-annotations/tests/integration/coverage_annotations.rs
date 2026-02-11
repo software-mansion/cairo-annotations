@@ -28,11 +28,11 @@ fn test_deserialization_versioned() {
             )),
             SourceCodeSpan {
                 start: SourceCodeLocation {
-                    line: LineNumber(10),
+                    line: LineNumber(8),
                     col: ColumnNumber(12)
                 },
                 end: SourceCodeLocation {
-                    line: LineNumber(10),
+                    line: LineNumber(8),
                     col: ColumnNumber(17)
                 }
             },
@@ -61,11 +61,11 @@ fn test_deserialization_v1() {
             )),
             SourceCodeSpan {
                 start: SourceCodeLocation {
-                    line: LineNumber(10),
+                    line: LineNumber(8),
                     col: ColumnNumber(12)
                 },
                 end: SourceCodeLocation {
-                    line: LineNumber(10),
+                    line: LineNumber(8),
                     col: ColumnNumber(17)
                 }
             },
