@@ -70,7 +70,12 @@ pub fn map_pcs_to_sierra_statement_ids(
         .collect()
 }
 
-fn map_pc_to_sierra_statement_id(
+/// Maps a program counter (pc) to a Sierra statement ID.
+///
+/// This function takes the Sierra statement debug information, a program counter (pc),
+/// and a real minimal program counter to determine the corresponding Sierra statement ID.
+/// It handles cases where the pc is within the header or outside the function area.
+pub fn map_pc_to_sierra_statement_id(
     sierra_statement_info: &[SierraStatementDebugInfo],
     pc: usize,
     real_minimal_pc: usize,

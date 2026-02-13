@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Made `map_pc_to_sierra_statement_id` public and added documentation.
+
 ## [0.7.0] - 2025-10-07
 
 ### Changed
