@@ -2,7 +2,7 @@ use assert_fs::TempDir;
 use assert_fs::fixture::PathCopy;
 use cairo_annotations::trace_data::{CairoExecutionInfo, CasmLevelInfo, VersionedCallTrace};
 use cairo_lang_sierra::debug_info::DebugInfo;
-use cairo_lang_sierra::program::{ProgramArtifact, VersionedProgram};
+use cairo_lang_sierra::program::{Program, ProgramArtifact, VersionedProgram};
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraToCasmConfig};
 use cairo_lang_sierra_to_casm::metadata::{MetadataComputationConfig, calc_metadata};
 use cairo_lang_sierra_type_size::ProgramRegistryInfo;
@@ -17,60 +17,6 @@ pub static SCARB_TEMPLATE_TRACE_FILE: LazyLock<TraceFile> = LazyLock::new(|| {
         .generate_trace_files()
         .first_trace_file()
 });
-pub struct TestProject {
-    dir: TempDir,
-}
-
-impl TestProject {
-    pub fn new(test_project_name: &str) -> Self {
-        let dir = TempDir::new().unwrap();
-
-        dir.copy_from(
-            format!("tests/data/{test_project_name}/"),
-            &["*.toml", "*.cairo"],
-        )
-        .unwrap();
-
-        Self { dir }
-    }
-
-    pub fn generate_trace_files(self) -> TestProjectOutput {
-        SnapboxCommand::new("snforge")
-            .arg("test")
-            .arg("--save-trace-data")
-            .current_dir(&self.dir)
-            .assert()
-            .success();
-        TestProjectOutput(self)
-    }
-}
-
-pub struct TestProjectOutput(TestProject);
-
-impl TestProjectOutput {
-    pub fn first_trace_file(self) -> TraceFile {
-        let trace_path = self.0.dir.path().join("snfoundry_trace");
-
-        let trace_file_path = fs::read_dir(&trace_path)
-            .unwrap()
-            .next()
-            .map(|entry| entry.unwrap().path())
-            .unwrap();
-
-        let VersionedCallTrace::V1(call_trace) = read_and_deserialize(&trace_file_path);
-
-        let cairo_execution_info = call_trace.cairo_execution_info.unwrap();
-        let VersionedProgram::V1 { program, .. } =
-            read_and_deserialize(&cairo_execution_info.source_sierra_path.clone().into());
-
-        let project_dir = self.0.dir.path().canonicalize().unwrap();
-        TraceFile {
-            project_dir,
-            cairo_execution_info,
-            program,
-        }
-    }
-}
 
 pub struct TraceFile {
     project_dir: PathBuf,
@@ -88,6 +34,10 @@ impl TraceFile {
 
     pub fn get_debug_info(&self) -> &DebugInfo {
         self.program.debug_info.as_ref().unwrap()
+    }
+
+    pub fn get_program(&self) -> &Program {
+        &self.program.program
     }
 
     pub fn get_casm_debug_info(&self) -> CairoProgramDebugInfo {
@@ -110,6 +60,61 @@ impl TraceFile {
         )
         .map(|casm| casm.debug_info)
         .unwrap()
+    }
+}
+
+struct TestProject {
+    dir: TempDir,
+}
+
+impl TestProject {
+    fn new(test_project_name: &str) -> Self {
+        let dir = TempDir::new().unwrap();
+
+        dir.copy_from(
+            format!("tests/data/{test_project_name}/"),
+            &["*.toml", "*.cairo"],
+        )
+        .unwrap();
+
+        Self { dir }
+    }
+
+    fn generate_trace_files(self) -> TestProjectOutput {
+        SnapboxCommand::new("snforge")
+            .arg("test")
+            .arg("--save-trace-data")
+            .current_dir(&self.dir)
+            .assert()
+            .success();
+        TestProjectOutput(self)
+    }
+}
+
+struct TestProjectOutput(TestProject);
+
+impl TestProjectOutput {
+    fn first_trace_file(self) -> TraceFile {
+        let trace_path = self.0.dir.path().join("snfoundry_trace");
+
+        let trace_file_path = fs::read_dir(&trace_path)
+            .unwrap()
+            .next()
+            .map(|entry| entry.unwrap().path())
+            .unwrap();
+
+        let VersionedCallTrace::V1(call_trace) = read_and_deserialize(&trace_file_path);
+
+        let cairo_execution_info = call_trace.cairo_execution_info.unwrap();
+        let VersionedProgram::V1 { program, .. } =
+            read_and_deserialize(&cairo_execution_info.source_sierra_path.clone().into());
+
+        let project_dir = self.0.dir.path().canonicalize().unwrap();
+        TraceFile {
+            project_dir,
+            cairo_execution_info,
+            program,
+        }
     }
 }
 
