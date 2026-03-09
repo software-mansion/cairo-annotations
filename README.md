@@ -12,9 +12,11 @@ To see JSON example of the annotations, check the following [file](./examples/an
 `cairo-annotations` offers a structured representation, allowing for more ergonomic manipulation of annotations. Some
 key features include:
 
-- **Coverage Annotations**: Track locations in the Cairo code that correspond to specific Sierra statements.
-- **Profiler Annotations**: Provide mappings from Sierra statements to fully qualified Cairo paths, detailing which
+- [**Coverage Annotations**](#coverage-annotations): Track locations in the Cairo code that correspond to specific Sierra statements.
+- [**Profiler Annotations**](#profiler-annotations): Provide mappings from Sierra statements to fully qualified Cairo paths, detailing which
   functions in the Cairo code triggered them.
+- [**Debugger Annotations**](#debugger-annotations): Provide debug information per sierra function, including its location and information about its variables.
+  
 
 All annotations implement the `TryFromDebugInfo` trait, enabling their extraction from Sierra debug information. Here's
 a simple example:
@@ -22,7 +24,6 @@ a simple example:
 ```rust
 let annotations = VersionedCoverageAnnotations::try_from_debug_info(sierra_debug_info).unwrap();
 ```
-
 
 ### Coverage Annotations
 
@@ -90,11 +91,41 @@ assert_eq!(
 );
 ```
 
+### Debugger Annotations
+
+Debugger annotations map Sierra functions ids to its debug information, allowing to explore the location of the Cairo 
+function the Sierra function was compiled from and mappings between Cairo and Sierra variables.
+
+Detailed information is available in [DebuggerAnnotationsV1](./crates/cairo-annotations/src/annotations/debugger.rs).
+
+Example to get the function debug info:
+
+```rust
+use cairo_annotations::annotations::coverage::SourceFileFullPath;
+use cairo_annotations::annotations::debugger::{
+    DebuggerAnnotationsV1, VersionedDebuggerAnnotations, SierraFunctionId
+};
+use cairo_annotations::annotations::TryFromDebugInfo;
+
+let VersionedDebuggerAnnotations::V1(annotations) =
+    VersionedDebuggerAnnotations::try_from_debug_info(sierra_debug_info).unwrap();
+
+let function_debug_info = annotations
+    .functions_info
+    .get(&SierraFunctionId(727041))
+    .unwrap();
+
+assert_eq!(
+    function_debug_info.function_file_path,
+    SourceFileFullPath("scarb_template/src/lib.cairo".to_string())
+);
+```
+
 ### Versioning
 
-Annotations are versioned to ensure backward compatibility with different formats. The `VersionedCoverageAnnotations`
-and `VersionedProfilerAnnotations` enums encapsulate the different versions of the annotations. The versioning goes
-as `V1`, `V2`, `V3`, and so on, with the greatest version representing the latest version.
+Annotations are versioned to ensure backward compatibility with different formats. The `VersionedCoverageAnnotations`,
+`VersionedProfilerAnnotations` and `VersionedDebuggerAnnotations` enums encapsulate the different versions of the annotations. 
+The versioning goes as `V1`, `V2`, `V3`, and so on, with the greatest version representing the latest version.
 
 ## Integration with snforge
 
