@@ -75,6 +75,8 @@ pub fn map_pcs_to_sierra_statement_ids(
 /// This function takes the Sierra statement debug information, a program counter (pc),
 /// and a real minimal program counter to determine the corresponding Sierra statement ID.
 /// It handles cases where the pc is within the header or outside the function area.
+#[must_use]
+#[allow(clippy::missing_panics_doc)]
 pub fn map_pc_to_sierra_statement_id(
     sierra_statement_info: &[SierraStatementDebugInfo],
     pc: usize,
