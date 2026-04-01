@@ -16,7 +16,7 @@ readme = "README.md"
 repository = "https://github.com/software-mansion/cairo-annotations"
 
 [workspace.dependencies]
-cairo-lang-sierra-to-casm = "2.12"
+cairo-lang-sierra-to-casm = "2.16"
 cairo-lang-sierra = "2.12"
 cairo-lang-sierra-type-size = "2.12"
 starknet-types-core = "1.0.0"
