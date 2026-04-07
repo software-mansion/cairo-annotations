@@ -8,9 +8,6 @@ updates:
       regular:
         exclude-patterns:
           - "cairo-lang-*"
-      cairo-lang:
-        patterns:
-          - "cairo-lang-*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
