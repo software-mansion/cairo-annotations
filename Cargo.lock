@@ -218,7 +218,7 @@ dependencies = [
  "serde",
  "serde_json",
  "snapbox",
- "starknet-types-core 1.0.0",
+ "starknet-types-core",
  "strum",
  "strum_macros",
  "thiserror",
@@ -270,7 +270,7 @@ dependencies = [
  "serde_json",
  "sha3",
  "smol_str",
- "starknet-types-core 0.2.4",
+ "starknet-types-core",
  "thiserror",
 ]
 
@@ -323,7 +323,7 @@ dependencies = [
  "itertools",
  "num-bigint",
  "num-traits",
- "starknet-types-core 0.2.4",
+ "starknet-types-core",
  "thiserror",
 ]
 
@@ -1693,23 +1693,6 @@ dependencies = [
  "lambdaworks-crypto",
  "lambdaworks-math",
  "lazy_static",
- "num-bigint",
- "num-integer",
- "num-traits",
- "rand 0.9.2",
- "serde",
- "zeroize",
-]
-
-[[package]]
-name = "starknet-types-core"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8a12690813e587969cb4a9e7d8ebdb069d4bb7ec8d03275c5f719310c8e1f07c"
-dependencies = [
- "generic-array",
- "lambdaworks-crypto",
- "lambdaworks-math",
  "num-bigint",
  "num-integer",
  "num-traits",
