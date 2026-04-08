@@ -19,7 +19,7 @@ repository = "https://github.com/software-mansion/cairo-annotations"
 cairo-lang-sierra-to-casm = "2.12"
 cairo-lang-sierra = "2.12"
 cairo-lang-sierra-type-size = "2.12"
-starknet-types-core = "1.0.0"
+starknet-types-core = "0.2.4"
 camino = { version = "1.2.2", features = ["serde1"] }
 thiserror = "2.0.18"
 derive_more = { version = "2.1.1", features = ["add", "add_assign", "mul", "mul_assign", "display"] }
