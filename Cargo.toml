@@ -16,9 +16,9 @@ readme = "README.md"
 repository = "https://github.com/software-mansion/cairo-annotations"
 
 [workspace.dependencies]
-cairo-lang-sierra-to-casm = "2.12"
-cairo-lang-sierra = "2.12"
-cairo-lang-sierra-type-size = "2.12"
+cairo-lang-sierra-to-casm = "2.17.0-rc.4"
+cairo-lang-sierra = "2.17.0-rc.4"
+cairo-lang-sierra-type-size = "2.17.0-rc.4"
 starknet-types-core = "0.2.4"
 camino = { version = "1.2.2", features = ["serde1"] }
 thiserror = "2.0.18"
