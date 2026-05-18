@@ -214,7 +214,6 @@ dependencies = [
  "cairo-lang-sierra-type-size",
  "camino",
  "derive_more",
- "regex",
  "serde",
  "serde_json",
  "snapbox",

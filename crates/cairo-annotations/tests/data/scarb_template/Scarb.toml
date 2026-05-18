@@ -10,4 +10,5 @@ snforge_std = "0.56.0"
 unstable-add-statements-functions-debug-info = true
 unstable-add-statements-code-locations-debug-info = true
 add-functions-debug-info = true
+add-types-debug-info = true
 inlining-strategy = "avoid"
