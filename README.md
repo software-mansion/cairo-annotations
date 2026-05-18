@@ -16,6 +16,7 @@ key features include:
 - [**Profiler Annotations**](#profiler-annotations): Provide mappings from Sierra statements to fully qualified Cairo paths, detailing which
   functions in the Cairo code triggered them.
 - [**Debugger Annotations**](#debugger-annotations): Provide debug information per sierra function, including its location and information about its variables.
+- [**Type Names Annotations**](#type-names-annotations): Provide names and member/variant information for Sierra struct and enum types.
   
 
 All annotations implement the `TryFromDebugInfo` trait, enabling their extraction from Sierra debug information. Here's
@@ -121,11 +122,39 @@ assert_eq!(
 );
 ```
 
+### Type Names Annotations
+
+Type names annotations map Sierra type IDs to their debug information (concretized name and member/variant names) for
+struct and enum types.
+
+Detailed information is available in [TypeNamesAnnotationsV1](./crates/cairo-annotations/src/annotations/type_names.rs).
+
+Example to get the struct info:
+
+```rust
+use cairo_annotations::annotations::type_names::{
+    SierraTypeId, TypeNamesAnnotationsV1, VersionedTypeNamesAnnotations,
+};
+use cairo_annotations::annotations::TryFromDebugInfo;
+
+let VersionedTypeNamesAnnotations::V1(annotations) =
+    VersionedTypeNamesAnnotations::try_from_debug_info(sierra_debug_info).unwrap();
+
+let struct_info = annotations
+    .structs
+    .get(&SierraTypeId(42))
+    .unwrap();
+
+assert_eq!(struct_info.name, "my_package::MyStruct");
+assert_eq!(struct_info.members, vec!["field_a".to_string(), "field_b".to_string()]);
+```
+
 ### Versioning
 
 Annotations are versioned to ensure backward compatibility with different formats. The `VersionedCoverageAnnotations`,
-`VersionedProfilerAnnotations` and `VersionedDebuggerAnnotations` enums encapsulate the different versions of the annotations. 
-The versioning goes as `V1`, `V2`, `V3`, and so on, with the greatest version representing the latest version.
+`VersionedProfilerAnnotations`, `VersionedDebuggerAnnotations` and `VersionedTypeNamesAnnotations` enums encapsulate
+the different versions of the annotations. The versioning goes as `V1`, `V2`, `V3`, and so on, with the greatest version
+representing the latest version.
 
 ## Integration with snforge
 
