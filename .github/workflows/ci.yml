@@ -18,19 +18,8 @@ jobs:
       - uses: foundry-rs/setup-snfoundry@16e23ddd0e2845f38727c92f4b913a7b728cda9e # v6.0.0
       - run: cargo test --release
 
-  rustfmt:
-    name: Check rust formatting
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt
-      - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
-      - run: cargo fmt --check
-
-  clippy:
-    name: Check linter
+  check:
+    name: Check formatting, linter, docs and unused dependencies
     runs-on: ubuntu-latest
     env:
       # Make sure CI fails on all warnings - including Clippy lints.
@@ -39,9 +28,13 @@ jobs:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
         with:
-          components: clippy
+          components: rustfmt, clippy
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+      - run: cargo fmt --check
       - run: cargo lint
+      - run: cargo doc --workspace --all-features --no-deps
+      - uses: taiki-e/install-action@cargo-machete
+      - run: cargo machete
 
   typos:
     name: Check typos
