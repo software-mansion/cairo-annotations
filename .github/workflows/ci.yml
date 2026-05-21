@@ -42,4 +42,4 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: typos-action
-        uses: crate-ci/typos@02ea592e44b3a53c302f697cddca7641cd051c3d # v1.45.0
+        uses: crate-ci/typos@aca895bf05aec0cb7dffa6f94495e923224d9f17 # v1.46.2
