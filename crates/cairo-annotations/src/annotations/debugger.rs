@@ -9,6 +9,7 @@ use std::collections::HashMap;
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum VersionedDebuggerAnnotations {
     V1(DebuggerAnnotationsV1),
+    V2(DebuggerAnnotationsV2),
 }
 
 /// The mapping from sierra function id to its debug info.
@@ -35,6 +36,43 @@ pub struct FunctionDebugInfo {
     pub sierra_to_cairo_variable: HashMap<SierraVarId, (CairoVariableName, SourceCodeSpan)>,
 }
 
+/// The mapping from Sierra function id to its debug info (v2).
+///
+/// Compared to [`DebuggerAnnotationsV1`], the Sierra -> Cairo variable mapping is now a multimap.
+/// It solves the issue of re-used Sierra variable IDs. For example, a Cairo function:
+/// ```ignore
+/// fn foo(x: felt252) {
+///     let y = x;
+/// }
+/// ```
+/// produces a following Sierra:
+/// ```ignore
+/// F1:
+/// store_temp<felt252>([0]) -> [0];
+/// drop<felt252>([0]);
+/// ```
+/// meaning that Sierra variable ID `[0]` is used to represent the value
+/// of both `x` and `y` Cairo variables.
+#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct DebuggerAnnotationsV2 {
+    pub functions_info: HashMap<SierraFunctionId, FunctionDebugInfoV2>,
+}
+
+/// The debug info of a sierra function (V2).
+#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct FunctionDebugInfoV2 {
+    /// Path to the user file the function comes from.
+    pub function_file_path: SourceFileFullPath,
+    /// Span of the function in the user file it comes from.
+    pub function_code_span: SourceCodeSpan,
+    /// All Cairo variables observed for each Sierra var, in appearance order.
+    /// The first entry is the original binding (function parameter or first `let`);
+    /// later entries are rebindings sharing the same Sierra ID.
+    pub sierra_to_cairo_variables: HashMap<SierraVarId, Vec<(CairoVariableName, SourceCodeSpan)>>,
+}
+
 type CairoVariableName = String;
 
 /// An id of a sierra function - equivalent to `id` field of [`cairo_lang_sierra::ids::FunctionId`].
@@ -53,6 +91,7 @@ impl Serialize for VersionedDebuggerAnnotations {
     {
         match self {
             VersionedDebuggerAnnotations::V1(v1) => v1.serialize(serializer),
+            VersionedDebuggerAnnotations::V2(v2) => v2.serialize(serializer),
         }
     }
 }
@@ -62,12 +101,23 @@ impl<'de> Deserialize<'de> for VersionedDebuggerAnnotations {
     where
         D: Deserializer<'de>,
     {
-        DebuggerAnnotationsV1::deserialize(deserializer).map(VersionedDebuggerAnnotations::V1)
+        // The two payloads are structurally distinct (`functions_info` values differ),
+        // so we can attempt V2 first and fall back to V1.
+        let value = serde_json::Value::deserialize(deserializer)?;
+
+        if let Ok(v2) = DebuggerAnnotationsV2::deserialize(&value) {
+            return Ok(VersionedDebuggerAnnotations::V2(v2));
+        }
+
+        DebuggerAnnotationsV1::deserialize(&value)
+            .map(VersionedDebuggerAnnotations::V1)
+            .map_err(serde::de::Error::custom)
     }
 }
 
 impl_namespace!(
     "github.com/software-mansion-labs/cairo-debugger",
     DebuggerAnnotationsV1,
+    DebuggerAnnotationsV2,
     VersionedDebuggerAnnotations
 );

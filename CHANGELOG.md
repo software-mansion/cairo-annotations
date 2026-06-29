@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added type names annotations support - check `VersionedTypeNamesAnnotations`
+- Introduced `DebuggerAnnotationsV2` with a multi-map of Sierra to Cairo variable map.
 
 ## [0.8.0] - 2026-04-08
 
