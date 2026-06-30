@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `Sha512ProcessBlock` to `DeprecatedSyscallSelector` (introduced in cairo 2.19.0 / Sierra 1.9.0)
+
 ### Changed
 
 - Downgraded `starknet-types-core` dependency
