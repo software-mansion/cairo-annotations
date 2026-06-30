@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-06-30
+
 ### Added
 
 - `Sha512ProcessBlock` to `DeprecatedSyscallSelector` (introduced in cairo 2.19.0 / Sierra 1.9.0)
