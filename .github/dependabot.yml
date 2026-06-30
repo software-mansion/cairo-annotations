@@ -8,6 +8,7 @@ updates:
       regular:
         exclude-patterns:
           - "cairo-lang-*"
+          - "starknet-types-core"
 
   - package-ecosystem: "github-actions"
     directory: "/"
