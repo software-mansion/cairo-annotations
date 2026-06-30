@@ -139,6 +139,7 @@ pub enum DeprecatedSyscallSelector {
     StorageRead,
     StorageWrite,
     Sha256ProcessBlock,
+    Sha512ProcessBlock,
     KeccakRound,
     MetaTxV0,
 }
