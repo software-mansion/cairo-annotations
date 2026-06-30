@@ -8,7 +8,8 @@ updates:
       regular:
         exclude-patterns:
           - "cairo-lang-*"
-          - "starknet-types-core"
+    ignore:
+      - dependency-name: "starknet-types-core"
 
   - package-ecosystem: "github-actions"
     directory: "/"
