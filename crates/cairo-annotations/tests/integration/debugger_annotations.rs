@@ -4,12 +4,13 @@ use cairo_annotations::annotations::coverage::{
     ColumnNumber, LineNumber, SourceCodeLocation, SourceCodeSpan, SourceFileFullPath,
 };
 use cairo_annotations::annotations::debugger::{
-    DebuggerAnnotationsV1, FunctionDebugInfo, SierraFunctionId, SierraVarId,
-    VersionedDebuggerAnnotations,
+    CairoVariableDefinition, DebuggerAnnotationsV1, FunctionDebugInfo, SierraFunctionId,
+    SierraVarId, VersionedDebuggerAnnotations,
 };
 use std::collections::HashMap;
 
 #[test]
+#[expect(clippy::too_many_lines)]
 fn test_deserialization_versioned() {
     let VersionedDebuggerAnnotations::V1(annotations) =
         VersionedDebuggerAnnotations::try_from_debug_info(
@@ -96,7 +97,23 @@ fn test_deserialization_versioned() {
                         }
                     )
                 )
-            ])
+            ]),
+            parameters: Some(HashMap::from([(
+                SierraVarId(2),
+                CairoVariableDefinition {
+                    name: "n".to_string(),
+                    span: SourceCodeSpan {
+                        start: SourceCodeLocation {
+                            line: LineNumber(4),
+                            col: ColumnNumber(11)
+                        },
+                        end: SourceCodeLocation {
+                            line: LineNumber(4),
+                            col: ColumnNumber(12)
+                        }
+                    }
+                }
+            )])),
         }
     );
 }
@@ -186,7 +203,23 @@ fn test_deserialization_v1() {
                         }
                     )
                 )
-            ])
+            ]),
+            parameters: Some(HashMap::from([(
+                SierraVarId(2),
+                CairoVariableDefinition {
+                    name: "n".to_string(),
+                    span: SourceCodeSpan {
+                        start: SourceCodeLocation {
+                            line: LineNumber(4),
+                            col: ColumnNumber(11)
+                        },
+                        end: SourceCodeLocation {
+                            line: LineNumber(4),
+                            col: ColumnNumber(12)
+                        }
+                    }
+                }
+            )])),
         }
     );
 }

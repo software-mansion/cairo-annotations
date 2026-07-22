@@ -33,6 +33,17 @@ pub struct FunctionDebugInfo {
     /// The sierra variable value corresponds to the cairo variable value at some point during
     /// execution of the function code.
     pub sierra_to_cairo_variable: HashMap<SierraVarId, (CairoVariableName, SourceCodeSpan)>,
+    /// Additional mapping for parameters specifically, as these may later be overridden.
+    pub parameters: Option<HashMap<SierraVarId, CairoVariableDefinition>>,
+}
+
+/// The definition of a single cairo variable.
+#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub struct CairoVariableDefinition {
+    /// The name of the variable in the source code.
+    pub name: CairoVariableName,
+    /// The span of the variable name definition in the source code.
+    pub span: SourceCodeSpan,
 }
 
 type CairoVariableName = String;
