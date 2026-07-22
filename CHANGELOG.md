@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added support for new `parameters` field in `FunctionDebugInfo` to reflect changes in debugger annotations
 
+### Changed
+
+- Added support for new `parameters` field in `FunctionDebugInfo` to reflect changes in debugger annotations
+
 ## [0.10.0] - 2026-06-30
 
 ### Added
