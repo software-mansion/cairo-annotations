@@ -1,5 +1,6 @@
 debug
-target
+**/target
 .idea
 .spr.yml
 .DS_Store
+**/.snfoudry_cache
