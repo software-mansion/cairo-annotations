@@ -1,5 +1,5 @@
 use assert_fs::TempDir;
-use assert_fs::fixture::PathCopy;
+use assert_fs::fixture::{FileWriteStr, PathChild, PathCopy};
 use cairo_annotations::trace_data::{CairoExecutionInfo, CasmLevelInfo, VersionedCallTrace};
 use cairo_lang_sierra::debug_info::DebugInfo;
 use cairo_lang_sierra::program::{Program, ProgramArtifact, VersionedProgram};
@@ -63,6 +63,9 @@ impl TraceFile {
     }
 }
 
+const TOOL_VERSIONS: &str =
+    include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/../../.tool-versions"));
+
 struct TestProject {
     dir: TempDir,
 }
@@ -70,6 +73,10 @@ struct TestProject {
 impl TestProject {
     fn new(test_project_name: &str) -> Self {
         let dir = TempDir::new().unwrap();
+
+        dir.child(".tool-versions")
+            .write_str(TOOL_VERSIONS)
+            .unwrap();
 
         dir.copy_from(
             format!("tests/data/{test_project_name}/"),
