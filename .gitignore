@@ -4,3 +4,4 @@ debug
 .spr.yml
 .DS_Store
 **/.snfoudry_cache
+*.snap.new

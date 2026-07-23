@@ -1,4 +1,3 @@
-use crate::helpers::output_same_as_in_file::AssertSameAsInFile;
 use crate::helpers::test_project::SCARB_TEMPLATE_TRACE_FILE;
 use cairo_annotations::map_pcs_to_sierra_statement_ids;
 use cairo_annotations::trace_data::CasmLevelInfo;
@@ -11,7 +10,7 @@ fn test_happy_path() {
         SCARB_TEMPLATE_TRACE_FILE.get_casm_level_info(),
     );
 
-    output.assert_same_as_in_file("map_pcs.txt");
+    insta::assert_debug_snapshot!(output);
 }
 
 #[test]
