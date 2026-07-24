@@ -27,6 +27,7 @@ strum_macros.workspace = true
 assert_fs.workspace = true
 cairo-annotations = { path = ".", features = ["cairo-lang"] }
 cairo-lang-sierra-type-size.workspace = true
+insta.workspace = true
 snapbox.workspace = true
 
 [features]

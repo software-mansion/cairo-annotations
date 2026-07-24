@@ -213,6 +213,7 @@ dependencies = [
  "cairo-lang-sierra-type-size",
  "camino",
  "derive_more",
+ "insta",
  "serde",
  "serde_json",
  "snapbox",
@@ -382,6 +383,17 @@ name = "colorchoice"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b05b61dc5112cbb17e4b6cd61790d9845d13888356391624cbe7e41efeac1e75"
+
+[[package]]
+name = "console"
+version = "0.16.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4fe5f465a4f6fee88fad41b85d990f84c835335e85b5d9e6e63e0d06d28cba7c"
+dependencies = [
+ "encode_unicode",
+ "libc",
+ "windows-sys",
+]
 
 [[package]]
 name = "const-fnv1a-hash"
@@ -560,6 +572,12 @@ checksum = "eabffdaee24bd1bf95c5ef7cec31260444317e72ea56c4c91750e8b7ee58d5f1"
 dependencies = [
  "log",
 ]
+
+[[package]]
+name = "encode_unicode"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "34aa73646ffb006b8f5147f3dc182bd4bcb190227ce861fc4a4844bf8e3cb2c0"
 
 [[package]]
 name = "equivalent"
@@ -767,6 +785,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "79cf5c93f93228cf8efb3ba362535fb11199ac548a09ce117c9b1adc3030d706"
 dependencies = [
  "rustversion",
+]
+
+[[package]]
+name = "insta"
+version = "1.48.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "86f0f8fee8c926415c58d6ae43a08523a26faccb2323f5e6b644fe7dd4ef6b82"
+dependencies = [
+ "console",
+ "once_cell",
+ "similar 2.7.0",
+ "tempfile",
 ]
 
 [[package]]
@@ -1587,6 +1617,12 @@ dependencies = [
 
 [[package]]
 name = "similar"
+version = "2.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbbb5d9659141646ae647b42fe094daf6c6192d1620870b449d9557f748b2daa"
+
+[[package]]
+name = "similar"
 version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e6505efef05804732ed8a3f2d4f279429eb485bd69d5b0cc6b19cc02005cda16"
@@ -1625,7 +1661,7 @@ dependencies = [
  "anstream",
  "anstyle",
  "normalize-line-endings",
- "similar",
+ "similar 3.1.1",
  "snapbox-macros",
 ]
 
@@ -1751,6 +1787,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
  "fastrand",
+ "getrandom 0.3.4",
  "once_cell",
  "rustix",
  "windows-sys",

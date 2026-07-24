@@ -1,3 +1,7 @@
+---
+source: crates/cairo-annotations/tests/integration/map_pcs_to_sierra_statement_ids.rs
+expression: output
+---
 [
     SierraStatementIdx(
         StatementIdx(
