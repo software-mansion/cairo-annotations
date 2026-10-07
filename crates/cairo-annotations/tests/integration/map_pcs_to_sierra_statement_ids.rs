@@ -22,7 +22,7 @@ fn test_empty_sierra_statement_info() {
         SCARB_TEMPLATE_TRACE_FILE.get_casm_level_info(),
     );
 
-    assert!(output.is_empty());
+    assert_eq!(output, [] as [cairo_annotations::MappingResult; 0]);
 }
 
 #[test]
@@ -38,5 +38,5 @@ fn test_empty_vm_trace() {
         },
     );
 
-    assert!(output.is_empty());
+    assert_eq!(output, [] as [cairo_annotations::MappingResult; 0]);
 }
