@@ -4,8 +4,7 @@ use serde::{Deserialize, Serialize};
 use starknet_types_core::felt::Felt;
 use std::collections::HashMap;
 use std::ops::{AddAssign, SubAssign};
-use strum::VariantArray;
-use strum_macros::{Display, EnumString, VariantArray};
+use strum::{Display, EnumString, VariantArray};
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
 pub struct ClassHash(#[serde(deserialize_with = "felt_deserialize")] pub Felt);
