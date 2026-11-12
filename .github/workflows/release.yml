@@ -25,11 +25,11 @@ jobs:
       version: ${{ steps.version.outputs.version }}
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
 
       - name: Get version from Cargo.toml
         id: lookupVersion
-        uses: mikefarah/yq@504fc38780cc46be8444ea1b72fb55919fc0bfb0 #v4.54.1
+        uses: mikefarah/yq@v4.54.1
         with:
           cmd: yq -oy '"v" + .workspace.package.version' 'Cargo.toml'
 
@@ -63,11 +63,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [verify-release-existence, get-version]
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
 
       - name: Create GitHub release
         id: create-release
-        uses: taiki-e/create-gh-release-action@eba8ea96c86cca8a37f1b56e94b4d13301fba651 # v1.11.0
+        uses: taiki-e/create-gh-release-action@v1.11.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           changelog: CHANGELOG.md
